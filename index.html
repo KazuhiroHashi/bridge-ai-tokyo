@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BridgeAI — 学ぶための道具をつくる</title>
+<meta name="description" content="BridgeAI は、資格・語学・AI の学習を助けるアプリとソフトウェアをつくっています。">
+<style>
+/* ───────────────────────────────────────────────
+   製品が増えてもここは触らない。追加するのは
+   <section id="products"> の中の <article class="card"> だけ。
+   ─────────────────────────────────────────────── */
+:root {
+  --primary: #1a5fb4;
+  --primary-dark: #144a8f;
+  --accent: #e66100;
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --text: #1f2328;
+  --muted: #6b7280;
+  --border: #d8dde3;
+  --radius: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #6ea8fe;
+    --primary-dark: #4d8ce0;
+    --accent: #ff9d4d;
+    --bg: #14171a;
+    --card: #1c2126;
+    --text: #e6e9ec;
+    --muted: #9aa4af;
+    --border: #2c333a;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  -webkit-text-size-adjust: 100%;
+}
+a { color: var(--primary); }
+.wrap { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+
+/* ── 見出し ── */
+.masthead {
+  background: var(--primary);
+  color: #fff;
+  padding: 56px 20px 48px;
+}
+@media (prefers-color-scheme: dark) {
+  .masthead { background: #10243f; }
+}
+.masthead .wrap { padding: 0; }
+.logo {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: 0.02em;
+  font-weight: 700;
+}
+.logo .ai { opacity: 0.72; }
+.lede {
+  margin: 14px 0 0;
+  font-size: 1.02rem;
+  opacity: 0.94;
+  max-width: 34em;
+}
+
+/* ── 本文 ── */
+main { padding: 44px 0 8px; }
+section { margin-bottom: 48px; }
+h2 {
+  font-size: 1.05rem;
+  margin: 0 0 6px;
+  padding-left: 10px;
+  border-left: 4px solid var(--primary);
+}
+.section-note { margin: 0 0 20px; color: var(--muted); font-size: 0.88rem; }
+
+/* ── 製品カード ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin-bottom: 16px;
+}
+.card h3 { margin: 0 0 4px; font-size: 1.12rem; }
+.card h3 a { text-decoration: none; }
+.card h3 a:hover { text-decoration: underline; }
+.card .summary { margin: 0 0 14px; color: var(--muted); font-size: 0.9rem; }
+.card .body { margin: 0 0 16px; font-size: 0.95rem; }
+.badges { margin: 0 0 12px; }
+.badge {
+  display: inline-block;
+  font-size: 0.74rem;
+  padding: 2px 9px;
+  border-radius: 999px;
+  margin: 0 6px 6px 0;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+.badge.live { background: var(--primary); border-color: var(--primary); color: #fff; }
+.badge.soon { border-style: dashed; }
+.go {
+  display: inline-block;
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+  padding: 9px 20px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+}
+.go:hover { background: var(--primary-dark); }
+.card.pending { border-style: dashed; opacity: 0.85; }
+.card.pending h3 { color: var(--muted); }
+
+/* ── 連絡先 ── */
+.contact p { margin: 0 0 8px; font-size: 0.95rem; }
+
+/* ── フッター ── */
+footer {
+  border-top: 1px solid var(--border);
+  margin-top: 20px;
+  padding: 24px 0 40px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+footer p { margin: 0 0 6px; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1 class="logo">Bridge<span class="ai">AI</span></h1>
+    <p class="lede">学ぶための道具をつくっています。資格・語学・AI。<br>
+      独学で身につけたものを、そのまま使える形にして配っています。</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ═══ 製品 ═══
+       増やすときは <article class="card"> を1つ足すだけ。
+       公開済みは class="card"、準備中は class="card pending"。 -->
+  <section id="products">
+    <h2>つくっているもの</h2>
+    <p class="section-note">それぞれ独立して動きます。アカウント登録は要りません。</p>
+
+    <article class="card">
+      <div class="badges">
+        <span class="badge live">公開中</span>
+        <span class="badge">Web</span>
+        <span class="badge">iOS(準備中)</span>
+      </div>
+      <h3><a href="https://toeic.bridge-ai-tokyo.com/">TOEIC&reg; 総合問題集</a></h3>
+      <p class="summary">全10セット・2,000問。解説と全訳つき。</p>
+      <p class="body">
+        本番と同じ200問を1セットとして、Part 1〜7 を通しで解けます。リスニングは
+        米・英・豪・加の録音音声を同梱。Part 1 の写真、図表問題、予想スコア換算まで
+        本番の形式に合わせました。ブラウザだけで動き、インストールは不要です。
+        <strong>セット1は無料</strong>で全機能を試せます。
+      </p>
+      <a class="go" href="https://toeic.bridge-ai-tokyo.com/">開く</a>
+    </article>
+
+    <article class="card pending">
+      <div class="badges"><span class="badge soon">準備中</span></div>
+      <h3>次の製品</h3>
+      <p class="summary">資格学習とAIまわりの道具を順次つくっています。</p>
+    </article>
+  </section>
+
+  <section class="contact">
+    <h2>お問い合わせ</h2>
+    <p>製品についてのご質問・不具合のご報告は、こちらまでお願いします。</p>
+    <p><a href="mailto:contact@bridge-ai-tokyo.com">contact@bridge-ai-tokyo.com</a></p>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p><a href="privacy.html">プライバシーポリシー</a></p>
+  <p>TOEIC&reg;はエデュケーション・テスティング・サービス(ETS)の登録商標です。この製品はETSの検討を受けまたはその承認を得たものではありません。</p>
+  <p>&copy; 2026 BridgeAI</p>
+</footer>
+
+</body>
+</html>
