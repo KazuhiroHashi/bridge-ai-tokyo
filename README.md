@@ -1,14 +1,26 @@
 # bridge-ai-tokyo
 
-**https://bridge-ai-tokyo.com/** — BridgeAI のサイト。製品の入口と、全製品共通のプライバシーポリシー。
+**https://bridge-ai-tokyo.com/** — Bridge AI のサイト。製品の入口、サポート、
+全製品共通のプライバシーポリシー。
 
 素の HTML だけ。ビルドも依存関係もない。ファイルを直せば、push した数分後に反映される。
 
 ```
-index.html     … トップページ(製品一覧)
-privacy.html   … プライバシーポリシー(App Store に登録する URL はこれ)
+index.html     … トップページ(製品一覧・運営者情報)
+support.html   … サポート(App Store Connect の「サポートURL」に登録する)
+privacy.html   … プライバシーポリシー(App Store Connect の「プライバシーポリシーURL」に登録する)
 CNAME          … 独自ドメイン。消さないこと
 ```
+
+## 屋号の表記は『Bridge AI』(半角スペースあり)
+
+開業届・D-U-N-S・Apple の登録名がすべてこの表記。**1文字でも違えてはいけない。**
+
+D&B と Apple の審査は、申請された事業者名とサイト上の表記を機械的に照合する。
+人間が見れば同じでも `BridgeAI` と `Bridge AI` は別文字列で、照合が取れないと
+差し戻しになり、2〜4週間の想定が伸びる。
+
+`index.html` の「運営者情報」に正式表記を置いてあるのはこのため。消さないこと。
 
 ## なぜ製品と別のリポジトリなのか
 
@@ -23,8 +35,8 @@ GitHub Pages には **1リポジトリ 1GB** の上限がある。TOEIC 問題�
 | `bridge-ai-tokyo.com` | このリポジトリ(ハブ)。軽いまま保つ |
 | `toeic.bridge-ai-tokyo.com` | [toeic_test](https://github.com/KazuhiroHashi/toeic_test) |
 
-ハブが軽いので、**プライバシーポリシーの URL が動かない。**App Store には
-`https://bridge-ai-tokyo.com/privacy.html` を登録するため、ここが安定していることが重要。
+ハブが軽いので、**プライバシーポリシーとサポートの URL が動かない。**
+App Store にはこの2つの URL を登録するため、ここが安定していることが重要。
 
 ## 製品を追加する手順
 

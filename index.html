@@ -3,12 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BridgeAI — 学ぶための道具をつくる</title>
-<meta name="description" content="BridgeAI は、資格・語学・AI の学習を助けるアプリとソフトウェアをつくっています。">
+<title>Bridge AI — 学ぶための道具をつくる</title>
+<meta name="description" content="Bridge AI は、資格・語学・AI の学習を助けるアプリとソフトウェアをつくっています。">
 <style>
 /* ───────────────────────────────────────────────
    製品が増えてもここは触らない。追加するのは
    <section id="products"> の中の <article class="card"> だけ。
+
+   屋号の表記は『Bridge AI』(半角スペースあり)で統一する。
+   開業届・D-U-N-S・Apple の登録名と1文字でも違うと、
+   審査の機械的な照合で別文字列と判定され、差し戻しになる。
    ─────────────────────────────────────────────── */
 :root {
   --primary: #1a5fb4;
@@ -118,8 +122,28 @@ h2 {
 .card.pending { border-style: dashed; opacity: 0.85; }
 .card.pending h3 { color: var(--muted); }
 
-/* ── 連絡先 ── */
+/* ── 連絡先・運営者情報 ── */
 .contact p { margin: 0 0 8px; font-size: 0.95rem; }
+.about-table {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  font-size: 0.92rem;
+}
+.about-table div {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+}
+.about-table div:last-child { border-bottom: none; }
+.about-table dt {
+  flex: 0 0 8.5em;
+  margin: 0;
+  padding: 10px 14px;
+  background: var(--card);
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+.about-table dd { flex: 1; margin: 0; padding: 10px 14px; }
 
 /* ── フッター ── */
 footer {
@@ -136,7 +160,7 @@ footer p { margin: 0 0 6px; }
 
 <header class="masthead">
   <div class="wrap">
-    <h1 class="logo">Bridge<span class="ai">AI</span></h1>
+    <h1 class="logo">Bridge <span class="ai">AI</span></h1>
     <p class="lede">学ぶための道具をつくっています。資格・語学・AI。<br>
       独学で身につけたものを、そのまま使える形にして配っています。</p>
   </div>
@@ -176,17 +200,33 @@ footer p { margin: 0 0 6px; }
   </section>
 
   <section class="contact">
-    <h2>お問い合わせ</h2>
+    <h2>お問い合わせ・サポート</h2>
     <p>製品についてのご質問・不具合のご報告は、こちらまでお願いします。</p>
     <p><a href="mailto:contact@bridge-ai-tokyo.com">contact@bridge-ai-tokyo.com</a></p>
+    <p><a href="support.html">よくあるご質問とサポート情報 →</a></p>
+  </section>
+
+  <!-- ═══ 運営者情報 ═══
+       D-U-N-S(D&B)と Apple の審査は、申請した事業者名とサイト上の表記を
+       機械的に照合する。ここに正式表記を1行置いておくことで確認が通る。
+       『Bridge AI』の表記を勝手に変えないこと。 -->
+  <section id="about">
+    <h2>運営者情報</h2>
+    <p class="section-note">About us</p>
+    <dl class="about-table">
+      <div><dt>屋号</dt><dd>Bridge AI</dd></div>
+      <div><dt>所在地</dt><dd>東京都</dd></div>
+      <div><dt>事業内容</dt><dd>モバイルアプリケーションの開発・販売、Webコンテンツの制作・販売</dd></div>
+      <div><dt>連絡先</dt><dd><a href="mailto:contact@bridge-ai-tokyo.com">contact@bridge-ai-tokyo.com</a></dd></div>
+    </dl>
   </section>
 
 </main>
 
 <footer class="wrap">
-  <p><a href="privacy.html">プライバシーポリシー</a></p>
+  <p><a href="privacy.html">プライバシーポリシー</a> ・ <a href="support.html">サポート</a></p>
   <p>TOEIC&reg;はエデュケーション・テスティング・サービス(ETS)の登録商標です。この製品はETSの検討を受けまたはその承認を得たものではありません。</p>
-  <p>&copy; 2026 BridgeAI</p>
+  <p>&copy; 2026 Bridge AI</p>
 </footer>
 
 </body>
