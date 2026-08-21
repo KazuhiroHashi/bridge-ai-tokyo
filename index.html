@@ -1,233 +1,306 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bridge AI — 学ぶための道具をつくる</title>
+<title>Bridge AI</title>
 <meta name="description" content="Bridge AI は、資格・語学・AI の学習を助けるアプリとソフトウェアをつくっています。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;800&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500;600&display=swap">
 <style>
-/* ───────────────────────────────────────────────
-   製品が増えてもここは触らない。追加するのは
-   <section id="products"> の中の <article class="card"> だけ。
+:root{
+  --ink:#06090C; --ink2:#0B1015; --ink3:#121920;
+  --bone:#EDEEEA; --bone2:#E4E6E1;
+  --sub:#8F9CA6; --sub2:#5E6A73;
+  --line:rgba(237,238,234,.13); --line-d:rgba(6,9,12,.14);
+  --amber:#C9975A; --steel:#8CACC4; --live:#7FB79A;
+  --serif:"Noto Serif JP",serif;
+  --sans:"Noto Sans JP",system-ui,sans-serif;
+  --lat:"Manrope",system-ui,sans-serif;
+  --pad:clamp(22px,5vw,64px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ink);color:var(--bone);
+  font-family:var(--sans);font-weight:300;font-size:16px;line-height:2.0;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:inherit}
+img{display:block;max-width:100%}
+.lat{font-family:var(--lat);font-weight:800;letter-spacing:.24em;text-transform:uppercase;font-size:10.5px}
+.wrap{max-width:1320px;margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+.narrow{max-width:940px}
 
-   屋号の表記は『Bridge AI』(半角スペースあり)で統一する。
-   開業届・D-U-N-S・Apple の登録名と1文字でも違うと、
-   審査の機械的な照合で別文字列と判定され、差し戻しになる。
-   ─────────────────────────────────────────────── */
-:root {
-  --primary: #1a5fb4;
-  --primary-dark: #144a8f;
-  --accent: #e66100;
-  --bg: #f6f7f9;
-  --card: #ffffff;
-  --text: #1f2328;
-  --muted: #6b7280;
-  --border: #d8dde3;
-  --radius: 12px;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --primary: #6ea8fe;
-    --primary-dark: #4d8ce0;
-    --accent: #ff9d4d;
-    --bg: #14171a;
-    --card: #1c2126;
-    --text: #e6e9ec;
-    --muted: #9aa4af;
-    --border: #2c333a;
-  }
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, system-ui, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.8;
-  -webkit-text-size-adjust: 100%;
-}
-a { color: var(--primary); }
-.wrap { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+/* ---------- header ---------- */
+.hd{position:fixed;inset:0 0 auto 0;z-index:60;transition:background .4s,border-color .4s,backdrop-filter .4s;border-bottom:1px solid transparent}
+.hd.stuck{background:rgba(6,9,12,.86);backdrop-filter:blur(14px);border-bottom-color:var(--line)}
+.hd .wrap{display:flex;align-items:center;height:84px;gap:34px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand .g{width:30px;height:30px;flex:none;color:var(--bone)}
+.brand .n{font-family:var(--lat);font-weight:800;font-size:16px;letter-spacing:.11em}
+.nav{margin-left:auto;display:flex;gap:32px;font-size:12.5px;font-weight:400;letter-spacing:.06em;color:var(--sub)}
+.nav a{text-decoration:none;transition:color .25s}
+.nav a:hover{color:var(--bone)}
+.cta-s{font-family:var(--lat);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(237,238,234,.32);padding:12px 22px;transition:.28s}
+.cta-s:hover{background:var(--bone);color:var(--ink);border-color:var(--bone)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
 
-/* ── 見出し ── */
-.masthead {
-  background: var(--primary);
-  color: #fff;
-  padding: 56px 20px 48px;
+/* ---------- hero ---------- */
+.hero{position:relative;height:100svh;min-height:600px;display:flex;align-items:flex-end;overflow:hidden}
+.hero .ph{position:absolute;inset:0}
+.hero .ph img{width:100%;height:100%;object-fit:cover;animation:kb 26s ease-out forwards}
+@keyframes kb{from{transform:scale(1.0)}to{transform:scale(1.09)}}
+.hero .vg{position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(6,9,12,.66) 0%,rgba(6,9,12,.12) 34%,rgba(6,9,12,.55) 72%,rgba(6,9,12,.95) 100%),
+  linear-gradient(90deg,rgba(6,9,12,.6) 0%,rgba(6,9,12,0) 62%)}
+.hero .wrap{position:relative;padding-bottom:clamp(56px,9vh,104px);width:100%}
+.hero .lat{color:var(--amber);margin-bottom:26px}
+h1{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(38px,7.2vw,88px);line-height:1.34;letter-spacing:.03em;
+  margin:0 0 28px;text-wrap:balance;
 }
-@media (prefers-color-scheme: dark) {
-  .masthead { background: #10243f; }
-}
-.masthead .wrap { padding: 0; }
-.logo {
-  margin: 0;
-  font-size: 2rem;
-  letter-spacing: 0.02em;
-  font-weight: 700;
-}
-.logo .ai { opacity: 0.72; }
-.lede {
-  margin: 14px 0 0;
-  font-size: 1.02rem;
-  opacity: 0.94;
-  max-width: 34em;
+.hero .sub{font-size:clamp(14px,1.5vw,17px);color:#C6CDD2;max-width:30em;margin:0 0 40px;font-weight:300}
+.hbtns{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.bt{display:inline-flex;align-items:center;gap:12px;text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.04em;padding:16px 30px;background:var(--bone);color:var(--ink);transition:.28s}
+.bt:hover{background:var(--amber);color:var(--ink)}
+.bt.o{background:transparent;color:var(--bone);border:1px solid rgba(237,238,234,.3)}
+.bt.o:hover{background:rgba(237,238,234,.1);border-color:var(--bone)}
+.bt svg{width:15px;height:15px}
+.sdown{position:absolute;right:var(--pad);bottom:clamp(56px,9vh,104px);display:flex;align-items:center;gap:14px;color:var(--sub)}
+.sdown .ln{width:70px;height:1px;background:linear-gradient(90deg,transparent,var(--sub));position:relative;overflow:hidden}
+.sdown .ln::after{content:"";position:absolute;inset:0;background:var(--bone);animation:sw 2.6s ease-in-out infinite}
+@keyframes sw{0%{transform:translateX(-100%)}60%,100%{transform:translateX(100%)}}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(26px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+@media (prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .hero .ph img{animation:none}
+  .sdown .ln::after{animation:none}
+  html{scroll-behavior:auto}
 }
 
-/* ── 本文 ── */
-main { padding: 44px 0 8px; }
-section { margin-bottom: 48px; }
-h2 {
-  font-size: 1.05rem;
-  margin: 0 0 6px;
-  padding-left: 10px;
-  border-left: 4px solid var(--primary);
-}
-.section-note { margin: 0 0 20px; color: var(--muted); font-size: 0.88rem; }
+/* ---------- statement ---------- */
+.stmt{position:relative;padding:clamp(110px,16vh,190px) 0;overflow:hidden}
+.stmt .bgtex{position:absolute;inset:0;opacity:.22}
+.stmt .bgtex img{width:100%;height:100%;object-fit:cover}
+.stmt .bgtex::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--ink),rgba(6,9,12,.55) 50%,var(--ink))}
+.stmt .wrap{position:relative}
+.stmt h2{font-family:var(--serif);font-weight:500;font-size:clamp(25px,4.2vw,50px);line-height:1.62;letter-spacing:.04em;margin:26px 0 40px;text-wrap:balance}
+.stmt p{color:var(--sub);max-width:31em;font-size:15px;margin:0}
+.stmt .lat{color:var(--amber)}
 
-/* ── 製品カード ── */
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px 22px;
-  margin-bottom: 16px;
-}
-.card h3 { margin: 0 0 4px; font-size: 1.12rem; }
-.card h3 a { text-decoration: none; }
-.card h3 a:hover { text-decoration: underline; }
-.card .summary { margin: 0 0 14px; color: var(--muted); font-size: 0.9rem; }
-.card .body { margin: 0 0 16px; font-size: 0.95rem; }
-.badges { margin: 0 0 12px; }
-.badge {
-  display: inline-block;
-  font-size: 0.74rem;
-  padding: 2px 9px;
-  border-radius: 999px;
-  margin: 0 6px 6px 0;
-  border: 1px solid var(--border);
-  color: var(--muted);
-}
-.badge.live { background: var(--primary); border-color: var(--primary); color: #fff; }
-.badge.soon { border-style: dashed; }
-.go {
-  display: inline-block;
-  background: var(--primary);
-  color: #fff;
-  text-decoration: none;
-  padding: 9px 20px;
-  border-radius: 999px;
-  font-size: 0.92rem;
-}
-.go:hover { background: var(--primary-dark); }
-.card.pending { border-style: dashed; opacity: 0.85; }
-.card.pending h3 { color: var(--muted); }
+/* ---------- section frame ---------- */
+.sec{padding:clamp(90px,13vh,150px) 0}
+.shead{display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px;margin-bottom:clamp(30px,5vh,52px);border-bottom:1px solid var(--line);padding-bottom:28px}
+.shead h2{font-family:var(--serif);font-weight:500;font-size:clamp(23px,3.4vw,38px);letter-spacing:.06em;margin:14px 0 0;line-height:1.5}
+.shead .lat{color:var(--amber)}
+.shead .cnt{font-family:var(--lat);font-size:11px;letter-spacing:.2em;color:var(--sub2)}
+.snote{color:var(--sub);font-size:13.5px;margin:0 0 clamp(44px,7vh,76px)}
 
-/* ── 連絡先・運営者情報 ── */
-.contact p { margin: 0 0 8px; font-size: 0.95rem; }
-.about-table {
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  font-size: 0.92rem;
-}
-.about-table div {
-  display: flex;
-  border-bottom: 1px solid var(--border);
-}
-.about-table div:last-child { border-bottom: none; }
-.about-table dt {
-  flex: 0 0 8.5em;
-  margin: 0;
-  padding: 10px 14px;
-  background: var(--card);
-  color: var(--muted);
-  font-size: 0.86rem;
-}
-.about-table dd { flex: 1; margin: 0; padding: 10px 14px; }
+/* ---------- products ---------- */
+.svc{display:grid;gap:clamp(70px,10vh,120px)}
+.row{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(34px,5vw,72px);align-items:center}
+.row:nth-child(even) .fig{order:2}
+.fig{position:relative;overflow:hidden;background:var(--ink2)}
+.fig img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.row:hover .fig img{transform:scale(1.05)}
+.fig .no{position:absolute;left:0;top:0;background:var(--ink);color:var(--amber);font-family:var(--lat);font-size:11px;letter-spacing:.22em;padding:12px 18px}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.bg{font-family:var(--lat);font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:5px 11px;border:1px solid var(--line);color:var(--sub)}
+.bg.live{border-color:rgba(127,183,154,.5);color:var(--live)}
+.bg.soon{border-style:dashed}
+.txt h3{font-family:var(--serif);font-weight:500;font-size:clamp(21px,2.6vw,30px);letter-spacing:.06em;margin:0 0 18px;line-height:1.55}
+.txt p{color:var(--sub);font-size:14.5px;margin:0 0 24px;max-width:30em}
+.txt ul{margin:0 0 28px;padding:0;list-style:none;border-top:1px solid var(--line)}
+.txt li{padding:13px 0;border-bottom:1px solid var(--line);font-size:13.5px;color:#B6BFC6;display:flex;gap:14px;align-items:baseline}
+.txt li::before{content:"";width:14px;height:1px;background:var(--amber);flex:none;transform:translateY(-4px)}
+.plink{display:inline-flex;align-items:center;gap:11px;text-decoration:none;font-family:var(--lat);font-weight:600;font-size:13px;letter-spacing:.06em;color:var(--bone);border-bottom:1px solid rgba(237,238,234,.35);padding-bottom:7px;transition:.28s}
+.plink:hover{color:var(--amber);border-color:var(--amber)}
+.plink svg{width:14px;height:14px}
 
-/* ── フッター ── */
-footer {
-  border-top: 1px solid var(--border);
-  margin-top: 20px;
-  padding: 24px 0 40px;
-  color: var(--muted);
-  font-size: 0.8rem;
+/* ---------- image band ---------- */
+.band{height:clamp(280px,46vh,460px);overflow:hidden;background:var(--ink2)}
+.band img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- outline ---------- */
+.out{display:grid;grid-template-columns:repeat(2,1fr);gap:0 clamp(30px,6vw,80px)}
+.out div{display:grid;grid-template-columns:130px 1fr;gap:20px;padding:19px 0;border-bottom:1px solid var(--line);font-size:14px}
+.out dt{color:var(--sub2);font-family:var(--lat);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;padding-top:5px}
+.out dd{margin:0;color:#C4CCD2;font-weight:400}
+
+/* ---------- contact ---------- */
+.contact{position:relative;overflow:hidden;min-height:clamp(460px,72vh,700px);display:flex;align-items:center}
+.contact .ph{position:absolute;inset:0}
+.contact .ph img{width:100%;height:100%;object-fit:cover}
+.contact .vg{position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,9,12,.94) 12%,rgba(6,9,12,.5) 78%,rgba(6,9,12,.7)),linear-gradient(0deg,rgba(6,9,12,.7),transparent 60%)}
+.contact .wrap{position:relative;width:100%}
+.contact .lat{color:var(--amber);display:block;margin-bottom:26px}
+.contact h2{font-family:var(--serif);font-weight:500;font-size:clamp(26px,4.6vw,54px);line-height:1.5;letter-spacing:.04em;margin:0 0 26px;text-wrap:balance}
+.contact p{color:#B9C2C8;max-width:29em;margin:0 0 40px;font-size:15px}
+
+/* ---------- mail ---------- */
+.mailbox{display:inline-flex;flex-direction:column;gap:14px;border-top:1px solid var(--line);padding-top:26px}
+.mailbox .mlbl{color:var(--sub2)}
+.mailto{
+  font-family:var(--lat);font-weight:600;letter-spacing:.01em;text-decoration:none;
+  font-size:clamp(19px,3.4vw,40px);line-height:1.2;color:var(--bone);
+  display:inline-block;padding-bottom:10px;position:relative;word-break:break-all;
 }
-footer p { margin: 0 0 6px; }
+.mailto::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:rgba(237,238,234,.35);transition:background .3s}
+.mailto:hover{color:var(--amber)}
+.mailto:hover::after{background:var(--amber)}
+.ml{color:#C4CCD2;text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px;transition:.25s}
+.ml:hover{color:var(--amber);border-color:var(--amber)}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:44px 0 54px}
+footer .wrap{display:flex;gap:26px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--sub2)}
+footer .fnav{margin-left:auto;display:flex;gap:26px}
+footer a{text-decoration:none;transition:color .25s}
+footer a:hover{color:var(--bone)}
+.legal{width:100%;border-top:1px solid var(--line);margin-top:24px;padding-top:22px;font-size:11px;line-height:1.85;color:var(--sub2);max-width:62em}
+
+@media(max-width:900px){
+  body{font-size:15px}
+  .nav{display:none}
+  .hero{height:92svh}
+  .sdown{display:none}
+  .row{grid-template-columns:1fr;gap:26px}
+  .row:nth-child(even) .fig{order:0}
+  .out{grid-template-columns:1fr}
+  .shead{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .out div{grid-template-columns:1fr;gap:2px}
+  .hbtns .bt{flex:1 1 100%;justify-content:center}
+}
 </style>
-</head>
-<body>
 
-<header class="masthead">
+<header class="hd" id="hd"><div class="wrap">
+  <a class="brand" href="#top">
+    <svg class="g" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+      <path d="M2 23h28M7 23V14M25 23V14M7 14c5.5-7.5 12.5-7.5 18 0"/>
+      <path d="M11 17.6V23M16 16.4V23M21 17.6V23"/>
+    </svg>
+    <span class="n">Bridge AI</span>
+  </a>
+  <nav class="nav">
+    <a href="#products">つくっているもの</a><a href="#outline">運営者情報</a>
+  </nav>
+  <a class="cta-s" href="#contact">Contact</a>
+</div></header>
+
+<div class="hero" id="top">
+  <div class="ph"><img src="img/hero.jpg" alt="夜明け前の橋" fetchpriority="high"></div>
+  <div class="vg"></div>
   <div class="wrap">
-    <h1 class="logo">Bridge <span class="ai">AI</span></h1>
-    <p class="lede">学ぶための道具をつくっています。資格・語学・AI。<br>
-      独学で身につけたものを、そのまま使える形にして配っています。</p>
+    <div class="lat rv">Bridge AI — Learning Tools</div>
+    <h1 class="rv d1">学ぶための道具を、<br>つくる。</h1>
+    <p class="sub rv d2">資格・語学・AI。学習のためのアプリとWebソフトウェアを開発・販売しています。</p>
+    <div class="hbtns rv d3">
+      <a class="bt" href="#products">つくっているもの
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="bt o" href="#contact">お問い合わせ</a>
+    </div>
   </div>
-</header>
+  <div class="sdown"><span class="lat" style="letter-spacing:.22em">Scroll</span><span class="ln"></span></div>
+</div>
 
-<main class="wrap">
+<section class="stmt">
+  <div class="bgtex"><img src="img/train.jpg" alt=""></div>
+  <div class="wrap narrow">
+    <div class="lat rv">Statement</div>
+    <h2 class="rv d1">資格・語学・AIの学習を、<br>ソフトウェアで助ける。</h2>
+    <p class="rv d2">Bridge AI は、学習のためのアプリとWebソフトウェアを開発・販売しています。ブラウザで動き、アカウント登録は必要ありません。</p>
+  </div>
+</section>
 
-  <!-- ═══ 製品 ═══
-       増やすときは <article class="card"> を1つ足すだけ。
-       公開済みは class="card"、準備中は class="card pending"。 -->
-  <section id="products">
-    <h2>つくっているもの</h2>
-    <p class="section-note">それぞれ独立して動きます。アカウント登録は要りません。</p>
+<section class="sec" id="products"><div class="wrap">
+  <div class="shead rv">
+    <div><span class="lat">Products</span><h2>つくっているもの</h2></div>
+    <div class="cnt">02 / Titles</div>
+  </div>
+  <p class="snote rv">それぞれ独立して動きます。アカウント登録は要りません。</p>
+  <div class="svc">
 
-    <article class="card">
-      <div class="badges">
-        <span class="badge live">公開中</span>
-        <span class="badge">Web</span>
-        <span class="badge">iOS(準備中)</span>
+    <article class="row rv">
+      <div class="fig"><img src="img/study.jpg" alt="夜の学習机"><span class="no">01</span></div>
+      <div class="txt">
+        <div class="badges"><span class="bg live">公開中</span><span class="bg">Web</span><span class="bg soon">iOS 準備中</span></div>
+        <h3>TOEIC&reg; 総合問題集</h3>
+        <p>本番と同じ200問を1セットとして、Part 1〜7 を通しで解けます。全10セット・2,000問。解説と全訳つき。</p>
+        <ul>
+          <li>リスニングは米・英・豪・加の録音音声を同梱</li>
+          <li>Part 1 の写真、図表問題、予想スコア換算まで本番の形式に</li>
+          <li>ブラウザだけで動作。インストール不要</li>
+          <li>セット1は無料で全機能を試せます</li>
+        </ul>
+        <a class="plink" href="https://toeic.bridge-ai-tokyo.com/">開く
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
-      <h3><a href="https://toeic.bridge-ai-tokyo.com/">TOEIC&reg; 総合問題集</a></h3>
-      <p class="summary">全10セット・2,000問。解説と全訳つき。</p>
-      <p class="body">
-        本番と同じ200問を1セットとして、Part 1〜7 を通しで解けます。リスニングは
-        米・英・豪・加の録音音声を同梱。Part 1 の写真、図表問題、予想スコア換算まで
-        本番の形式に合わせました。ブラウザだけで動き、インストールは不要です。
-        <strong>セット1は無料</strong>で全機能を試せます。
-      </p>
-      <a class="go" href="https://toeic.bridge-ai-tokyo.com/">開く</a>
     </article>
 
-    <article class="card pending">
-      <div class="badges"><span class="badge soon">準備中</span></div>
-      <h3>次の製品</h3>
-      <p class="summary">資格学習とAIまわりの道具を順次つくっています。</p>
+    <article class="row rv">
+      <div class="fig"><img src="img/device.jpg" alt="端末の画面"><span class="no">02</span></div>
+      <div class="txt">
+        <div class="badges"><span class="bg soon">準備中</span></div>
+        <h3>次の製品</h3>
+        <p>資格学習とAIまわりの道具を、順次つくっています。公開できる段階になったら、ここに並べます。</p>
+      </div>
     </article>
-  </section>
 
-  <section class="contact">
-    <h2>お問い合わせ・サポート</h2>
-    <p>製品についてのご質問・不具合のご報告は、こちらまでお願いします。</p>
-    <p><a href="mailto:contact@bridge-ai-tokyo.com">contact@bridge-ai-tokyo.com</a></p>
-    <p><a href="support.html">よくあるご質問とサポート情報 →</a></p>
-  </section>
+  </div>
+</div></section>
 
-  <!-- ═══ 運営者情報 ═══
-       D-U-N-S(D&B)と Apple の審査は、申請した事業者名とサイト上の表記を
-       機械的に照合する。ここに正式表記を1行置いておくことで確認が通る。
-       『Bridge AI』の表記を勝手に変えないこと。 -->
-  <section id="about">
-    <h2>運営者情報</h2>
-    <p class="section-note">About us</p>
-    <dl class="about-table">
-      <div><dt>屋号</dt><dd>Bridge AI</dd></div>
-      <div><dt>所在地</dt><dd>東京都</dd></div>
-      <div><dt>事業内容</dt><dd>モバイルアプリケーションの開発・販売、Webコンテンツの制作・販売</dd></div>
-      <div><dt>連絡先</dt><dd><a href="mailto:contact@bridge-ai-tokyo.com">contact@bridge-ai-tokyo.com</a></dd></div>
-    </dl>
-  </section>
+<div class="band"><img src="img/cable.jpg" alt=""></div>
 
-</main>
 
-<footer class="wrap">
-  <p><a href="privacy.html">プライバシーポリシー</a> ・ <a href="support.html">サポート</a></p>
-  <p>TOEIC&reg;はエデュケーション・テスティング・サービス(ETS)の登録商標です。この製品はETSの検討を受けまたはその承認を得たものではありません。</p>
-  <p>&copy; 2026 Bridge AI</p>
-</footer>
 
-</body>
-</html>
+<section class="sec" id="outline"><div class="wrap">
+  <div class="shead rv">
+    <div><span class="lat">Outline</span><h2>運営者情報</h2></div>
+  </div>
+  <div class="out rv d1">
+    <div><dt>Name</dt><dd>Bridge AI</dd></div>
+    <div><dt>Business</dt><dd>モバイルアプリケーションの開発・販売、Webコンテンツの制作・販売</dd></div>
+    <div><dt>Location</dt><dd>東京都</dd></div>
+    <div><dt>Contact</dt><dd><a class="ml" href="mailto:contact@bridge-ai-tokyo.com">contact@bridge-ai-tokyo.com</a></dd></div>
+  </div>
+</div></section>
+
+<section class="contact" id="contact">
+  <div class="ph"><img src="img/city.jpg" alt="夕暮れの都市と橋"></div>
+  <div class="vg"></div>
+  <div class="wrap">
+    <span class="lat rv">Contact</span>
+    <h2 class="rv d1">製品について、<br>お気軽にどうぞ。</h2>
+    <p class="rv d2">ご質問、不具合のご報告、ご要望はこちらまで。いただいた内容は次の版に反映します。</p>
+    <div class="mailbox rv d3">
+      <span class="lat mlbl">Mail</span>
+      <a class="mailto" href="mailto:contact@bridge-ai-tokyo.com">contact@bridge-ai-tokyo.com</a>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <span class="lat" style="letter-spacing:.11em;font-size:12px">Bridge AI</span>
+  <span>&copy; 2026 Bridge AI</span>
+  <span class="fnav"><a href="privacy.html">プライバシーポリシー</a><a href="support.html">サポート</a></span>
+  <p class="legal">TOEIC&reg;はエデュケーション・テスティング・サービス(ETS)の登録商標です。この製品はETSの検討を受けまたはその承認を得たものではありません。</p>
+</div></footer>
+
+<script>
+(function(){
+  var hd=document.getElementById('hd');
+  var onScroll=function(){ hd.classList.toggle('stuck', window.scrollY>40) };
+  onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+
+  var els=[].slice.call(document.querySelectorAll('.rv'));
+  if(!('IntersectionObserver' in window)){ els.forEach(function(e){e.classList.add('in')}); return }
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target) } })
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){ io.observe(e) });
+})();
+</script>

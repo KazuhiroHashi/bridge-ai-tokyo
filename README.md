@@ -7,6 +7,7 @@
 
 ```
 index.html     … トップページ(製品一覧・運営者情報)
+img/           … トップページの写真(6点・合計約1MB)
 support.html   … サポート(App Store Connect の「サポートURL」に登録する)
 privacy.html   … プライバシーポリシー(App Store Connect の「プライバシーポリシーURL」に登録する)
 CNAME          … 独自ドメイン。消さないこと
