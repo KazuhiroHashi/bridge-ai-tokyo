@@ -130,6 +130,7 @@ h1{
 .plink{display:inline-flex;align-items:center;gap:11px;text-decoration:none;font-family:var(--lat);font-weight:600;font-size:13px;letter-spacing:.06em;color:var(--bone);border-bottom:1px solid rgba(237,238,234,.35);padding-bottom:7px;transition:.28s}
 .plink:hover{color:var(--amber);border-color:var(--amber)}
 .plink svg{width:14px;height:14px}
+.plinks{display:flex;gap:30px;flex-wrap:wrap}
 
 /* ---------- courses ---------- */
 .clist{border-top:1px solid var(--line)}
@@ -260,17 +261,21 @@ footer a:hover{color:var(--bone)}
     <article class="row rv">
       <div class="fig"><img src="img/study.jpg" alt="夜の学習机"><span class="no">01</span></div>
       <div class="txt">
-        <div class="badges"><span class="bg live">公開中</span><span class="bg">Web</span><span class="bg soon">iOS 準備中</span></div>
+        <div class="badges"><span class="bg live">公開中</span><span class="bg">Web</span><span class="bg">iOS</span></div>
         <h3>TOEIC&reg; 総合問題集</h3>
         <p>本番と同じ200問を1セットとして、Part 1〜7 を通しで解けます。全10セット・2,000問。解説と全訳つき。</p>
         <ul>
           <li>リスニングは米・英・豪・加の録音音声を同梱</li>
           <li>Part 1 の写真、図表問題、予想スコア換算まで本番の形式に</li>
-          <li>ブラウザだけで動作。インストール不要</li>
+          <li>ブラウザで動作。インストール不要。iOSアプリも公開中</li>
           <li>セット1は無料で全機能を試せます</li>
         </ul>
-        <a class="plink" href="https://toeic.bridge-ai-tokyo.com/">開く
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <div class="plinks">
+          <a class="plink" href="https://toeic.bridge-ai-tokyo.com/">Webで開く
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="plink" href="https://apps.apple.com/jp/app/id6800208707">App Store
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
       </div>
     </article>
 
