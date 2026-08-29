@@ -131,6 +131,23 @@ h1{
 .plink:hover{color:var(--amber);border-color:var(--amber)}
 .plink svg{width:14px;height:14px}
 
+/* ---------- courses ---------- */
+.clist{border-top:1px solid var(--line)}
+.crow{display:grid;grid-template-columns:64px 1fr auto;gap:26px;align-items:center;
+  padding:26px 8px 26px 4px;border-bottom:1px solid var(--line);text-decoration:none;
+  transition:background .3s,padding .3s}
+.crow:hover{background:rgba(237,238,234,.045);padding-left:14px}
+.cno{font-family:var(--lat);font-size:11px;letter-spacing:.22em;color:var(--amber)}
+.ccode{font-family:var(--lat);font-weight:800;font-size:15px;letter-spacing:.06em;color:var(--bone);display:block;margin-bottom:5px}
+.ctitle{display:block;font-size:14.5px;color:#C4CCD2;line-height:1.7}
+.cmeta{display:block;font-size:12.5px;color:var(--sub);margin-top:7px}
+.cgo{display:inline-flex;align-items:center;gap:10px;font-family:var(--lat);font-weight:600;
+  font-size:12px;letter-spacing:.06em;color:var(--sub);white-space:nowrap;transition:color .3s}
+.crow:hover .cgo{color:var(--amber)}
+.cgo svg{width:13px;height:13px;transition:transform .3s}
+.crow:hover .cgo svg{transform:translateX(4px)}
+.cfoot{margin:26px 0 0;font-size:12.5px;color:var(--sub2)}
+
 /* ---------- image band ---------- */
 .band{height:clamp(280px,46vh,460px);overflow:hidden;background:var(--ink2)}
 .band img{width:100%;height:100%;object-fit:cover}
@@ -181,6 +198,8 @@ footer a:hover{color:var(--bone)}
   .row{grid-template-columns:1fr;gap:26px}
   .row:nth-child(even) .fig{order:0}
   .out{grid-template-columns:1fr}
+  .crow{grid-template-columns:44px 1fr;gap:6px 16px}
+  .cgo{grid-column:2;margin-top:10px}
   .shead{grid-template-columns:1fr}
 }
 @media(max-width:520px){
@@ -200,7 +219,7 @@ footer a:hover{color:var(--bone)}
     <span class="n">Bridge AI</span>
   </a>
   <nav class="nav">
-    <a href="#products">つくっているもの</a><a href="#outline">運営者情報</a>
+    <a href="#products">つくっているもの</a><a href="#udemy">Udemy</a><a href="#outline">運営者情報</a>
   </nav>
   <a class="cta-s" href="#contact">Contact</a>
 </div></header>
@@ -265,6 +284,56 @@ footer a:hover{color:var(--bone)}
     </article>
 
   </div>
+</div></section>
+
+<div class="band"><img src="img/course.jpg" alt=""></div>
+
+<section class="sec" id="udemy"><div class="wrap">
+  <div class="shead rv">
+    <div><span class="lat">Courses</span><h2>Udemy</h2></div>
+    <div class="cnt">03 / Courses</div>
+  </div>
+  <p class="snote rv">NVIDIA認定資格の模擬試験を公開しています。いずれも6セット・全300問。解説つき。</p>
+
+  <!-- 講座を増やすときは、この <a class="crow"> を1つ複製して4行(番号・略称・正式名・問題数)と
+       href を差し替えるだけ。href の ?referralCode= は消さないこと(講師リファラル)。 -->
+  <div class="clist rv d1">
+
+    <a class="crow" href="https://www.udemy.com/course/nca-aiio-practice-exams-6-tests-300-questions/?referralCode=52334A931257C3EC1E4A">
+      <span class="cno">01</span>
+      <span>
+        <span class="ccode">NCA-AIIO</span>
+        <span class="ctitle">NVIDIA-Certified Associate: AI Infrastructure and Operations</span>
+        <span class="cmeta">模擬試験 6セット・全300問／各問に解説</span>
+      </span>
+      <span class="cgo">Udemyで見る
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+
+    <a class="crow" href="https://www.udemy.com/course/nca-genl-practice-exams-6-tests-300-questions/?referralCode=9CB9549D325D637B8EF8">
+      <span class="cno">02</span>
+      <span>
+        <span class="ccode">NCA-GENL</span>
+        <span class="ctitle">NVIDIA-Certified Associate: Generative AI LLMs</span>
+        <span class="cmeta">模擬試験 6セット・全300問／各問に解説</span>
+      </span>
+      <span class="cgo">Udemyで見る
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+
+    <a class="crow" href="https://www.udemy.com/course/nca-genm-practice-exams-6-tests-300-questions/?referralCode=29B35CF42408268F52D1">
+      <span class="cno">03</span>
+      <span>
+        <span class="ccode">NCA-GENM</span>
+        <span class="ctitle">NVIDIA-Certified Associate: Generative AI Multimodal</span>
+        <span class="cmeta">模擬試験 6セット・全300問／各問に解説</span>
+      </span>
+      <span class="cgo">Udemyで見る
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+
+  </div>
+  <p class="cfoot rv">講座は順次追加しています。購入・受講はUdemy上で行われます。</p>
 </div></section>
 
 <div class="band"><img src="img/cable.jpg" alt=""></div>
