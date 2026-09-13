@@ -161,6 +161,42 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:64px;height:3px;
   background:linear-gradient(90deg,var(--gold),rgba(232,184,75,0))}
 .sublead{color:var(--dim);margin:0 0 32px;font-size:15.5px;max-width:34em;line-height:1.9}
 
+/* 敵のイラスト。上から順に強くなる。右上→左下→右上→左下…と交互に置く。
+   装飾なので操作の邪魔はしない */
+.foe{
+  /* 端に寄りすぎないよう、本文の列の内側まで入れる */
+  --ins:max(8vw,calc(50% - 420px));
+  --fw:clamp(56px,6vw,80px);
+  position:absolute;z-index:3;pointer-events:none;
+  /* 縦長の敵も横長の敵も同じ枠に収める。こうしないと見た目の大きさがそろわない */
+  width:var(--fw);height:var(--fw);object-fit:contain;
+  opacity:0;transform:translateY(12px) scale(.96);
+  transition:opacity .9s ease,transform .9s ease;
+  filter:drop-shadow(0 8px 20px rgba(0,0,0,.6))}
+.foe.in{opacity:1;transform:none}
+/* 右上:セクションの上の余白へ / 左下:下の余白へ */
+.foe.tr{top:clamp(26px,5vh,62px);right:var(--ins)}
+.foe.bl{bottom:clamp(10px,2.4vh,30px);left:var(--ins)}
+section > .wrap{z-index:1}
+
+/* 最後の1体。押すとページの先頭へ戻る */
+.totop{display:flex;flex-direction:column;align-items:center;gap:10px;
+  text-decoration:none;padding:30px 0 4px}
+.totop img{width:clamp(92px,11vw,132px);height:auto;
+  filter:drop-shadow(0 12px 30px rgba(0,0,0,.6));transition:transform .25s ease}
+.totop span{font-family:var(--dot);font-weight:700;font-size:13px;letter-spacing:.16em;color:var(--gold);
+  border:1px solid var(--gold-d);border-radius:4px;padding:5px 16px;
+  background:rgba(11,16,32,.6);transition:background .2s,color .2s}
+.totop:hover img{transform:translateY(-4px)}
+.totop:hover span{background:rgba(232,184,75,.12)}
+.totop:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+
+
+@media (prefers-reduced-motion:reduce){
+  .foe{transition:none;transform:none}
+  .totop img{transition:none}
+}
+
 /* 診断 */
 .diag{text-align:center}
 .diag .q{font-family:var(--dot);font-weight:700;font-size:clamp(20px,4.2vw,34px);letter-spacing:.06em;line-height:1.6;margin:0 0 24px;color:#FFF3D4}
@@ -342,13 +378,18 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   </div>
 </div>
 
-<section class="diag"><div class="wrap">
+<section class="diag">
+  <img class="foe bl" src="img/foe/bat.png" alt="" aria-hidden="true" loading="lazy">
+  <div class="wrap">
   <p class="q">めくる単語帳から、<br>戦う単語帳へ。</p>
   <p>WORDRIA は、英単語の学習を目的としたRPGです。敵と戦い、冒険を進めていくうちに、単語が身につきます。</p>
   <p>覚える作業としてではなく、<strong>遊びとして続けられる形</strong>にしました。</p>
 </div></section>
 
-<section id="pv" class="band"><div class="wrap">
+<section id="pv" class="band">
+  <img class="foe tr" src="img/foe/bee.png" alt="" aria-hidden="true" loading="lazy">
+  <img class="foe bl" src="img/foe/goblin.png" alt="" aria-hidden="true" loading="lazy">
+  <div class="wrap">
   <h2>紹介動画</h2>
   <div class="prwrap">
     <div class="prbox">
@@ -357,7 +398,10 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   </div>
 </div></section>
 
-<section id="shots"><div class="wrap">
+<section id="shots">
+  <img class="foe tr" src="img/foe/worm.png" alt="" aria-hidden="true" loading="lazy">
+  <img class="foe bl" src="img/foe/rat.png" alt="" aria-hidden="true" loading="lazy">
+  <div class="wrap">
   <h2>画面</h2>
   <div class="shots">
     <figure class="shot"><img src="img/shot-quiz.jpg" alt="出題画面" loading="lazy"><figcaption>4つの選択肢から選ぶ</figcaption></figure>
@@ -367,7 +411,10 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   </div>
 </div></section>
 
-<section id="battle" class="band"><div class="wrap">
+<section id="battle" class="band">
+  <img class="foe tr" src="img/foe/snake.png" alt="" aria-hidden="true" loading="lazy">
+  <img class="foe bl" src="img/foe/mush.png" alt="" aria-hidden="true" loading="lazy">
+  <div class="wrap">
   <h2>遊び方</h2>
   <p class="sublead">英単語のクイズに答えながら、コマンドバトルを進めます。</p>
   <div class="steps">
@@ -386,7 +433,9 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   </div>
 </div></section>
 
-<section id="chars"><div class="wrap">
+<section id="chars">
+  <img class="foe tr" src="img/foe/owl.png" alt="" aria-hidden="true" loading="lazy">
+  <div class="wrap">
   <h2>仲間</h2>
   <p class="sublead">王都グロッサ。人々から《声》が消え始めた大陸を、4人で旅します。</p>
 
@@ -404,7 +453,9 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   <div class="win charbody" id="charbody" role="tabpanel" aria-live="polite"></div>
 </div></section>
 
-<section id="feature" class="band"><div class="wrap">
+<section id="feature" class="band">
+  <img class="foe bl" src="img/foe/ghost.png" alt="" aria-hidden="true" loading="lazy">
+  <div class="wrap">
   <h2>できること</h2>
   <p class="sublead">中学英語から、大学受験、TOEIC&reg;テスト頻出レベルの語彙まで、同じ仕組みで鍛えられます。</p>
   <div class="feats">
@@ -429,7 +480,10 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   </div>
 </div></section>
 
-<section id="price"><div class="wrap">
+<section id="price">
+  <img class="foe tr" src="img/foe/wolf.png" alt="" aria-hidden="true" loading="lazy">
+  <img class="foe bl" src="img/foe/dragon.png" alt="" aria-hidden="true" loading="lazy">
+  <div class="wrap">
   <h2>料金</h2>
   <p class="sublead">無料のまま遊べます。プレミアムに登録すると、広告が非表示になり、日ごとの正答率の推移なども確認できます。</p>
   <div class="plans">
@@ -456,7 +510,8 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   </div>
 </div></section>
 
-<section id="faq" class="band"><div class="wrap">
+<section id="faq" class="band">
+  <div class="wrap">
   <h2>よくある質問</h2>
   <div class="faq">
     <details open><summary>解約はどうすればいいですか</summary>
@@ -468,6 +523,11 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
     <details><summary>不具合を見つけました</summary>
       <p><a href="mailto:contact@bridge-ai-tokyo.com">contact@bridge-ai-tokyo.com</a> までご連絡ください。お使いの端末と、どの場面で起きたかを添えていただけると原因を特定しやすくなります。返信までに数日いただくことがあります。</p></details>
   </div>
+
+  <a class="totop" href="#top">
+    <img src="img/foe/gen_r.png" alt="" aria-hidden="true" loading="lazy">
+    <span>トップに戻る</span>
+  </a>
 </div></section>
 
 <footer><div class="wrap">
@@ -660,6 +720,24 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
     });
   });
   show('yu');
+})();
+</script>
+
+<script>
+/* 敵のイラストを、画面に入ったところで出す */
+(function(){
+  var foes = [].slice.call(document.querySelectorAll('.foe'));
+  if(!foes.length) return;
+  if(!('IntersectionObserver' in window)){
+    foes.forEach(function(f){ f.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.1 });
+  foes.forEach(function(f){ io.observe(f); });
 })();
 </script>
 
