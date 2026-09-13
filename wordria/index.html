@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WORDRIA — 爽快コマンドバトル英単語RPG</title>
+<meta name="description" content="WORDRIA（ワードリア）は、英単語に速く答えるほど強い一撃になる英単語RPG。「知ってる」と「すぐ出てくる」は別の力です。">
+<meta name="theme-color" content="#0B1020">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WORDRIA — 爽快コマンドバトル英単語RPG">
+<meta property="og:description" content="単語帳を開くより、冒険しよう。爽快コマンドバトル英単語RPG。">
+<meta property="og:url" content="https://bridge-ai-tokyo.com/wordria/">
+<meta property="og:image" content="https://bridge-ai-tokyo.com/wordria/img/title.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap">
+<style>
+:root{
+  --night:#0B1020; --night2:#121A33; --panel:#182242;
+  --edge:#3D5590; --edge-hi:#7C9AE0;
+  --paper:#F2F4FB; --dim:#BFCBE6; --dim2:#8B9CC2;
+  --gold:#E8B84B; --gold-d:#A97E17;
+  --ok:#63D19A; --ng:#E0736B;
+  /* ゲーム本体と同じ書体。アプリでは WQ Display という別名で埋め込まれている */
+  --dot:"Zen Kaku Gothic New",system-ui,sans-serif;
+  --sans:"Zen Kaku Gothic New",system-ui,sans-serif;
+  --pad:clamp(20px,5vw,56px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--paper);font-family:var(--sans);font-size:16px;line-height:1.95;
+  background:linear-gradient(180deg,#0B1020 0%,#090D1A 100%);background-color:var(--night);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:inherit}
+img{display:block;max-width:100%}
+.wrap{max-width:960px;margin:0 auto;padding-left:var(--pad);padding-right:var(--pad);position:relative}
+.dot{font-family:var(--dot);font-weight:700;letter-spacing:.08em}
+
+/* RPGのコマンドウィンドウ */
+.win{position:relative;background:linear-gradient(180deg,rgba(24,34,66,.96),rgba(13,19,40,.96));
+  border:3px solid var(--edge);border-radius:6px;padding:clamp(22px,4vw,34px);
+  box-shadow:inset 0 0 0 2px rgba(124,154,224,.26), 0 10px 34px rgba(0,0,0,.5)}
+.win::before,.win::after{content:"";position:absolute;width:9px;height:9px;background:var(--edge-hi)}
+.win::before{left:5px;top:5px}.win::after{right:5px;bottom:5px}
+
+/* ヘッダー */
+.hd{position:fixed;top:0;left:0;right:0;z-index:40;background:rgba(11,16,32,.92);backdrop-filter:blur(8px);
+  border-bottom:2px solid rgba(61,85,144,.7);
+  transform:translateY(-105%);opacity:0;pointer-events:none;transition:transform .35s ease,opacity .35s ease}
+.hd.show{transform:none;opacity:1;pointer-events:auto}
+.hd .wrap{display:flex;align-items:center;height:66px;gap:20px;position:relative}
+.hd .logo{position:absolute;left:50%;top:calc(50% + 4px);transform:translate(-50%,-50%);display:flex;align-items:center}
+/* 切り出さず全体を使う。飾りの上下が欠けないように */
+.hd .logo img{height:48px;width:auto;filter:drop-shadow(0 2px 8px rgba(0,0,0,.7))}
+.hd nav{margin-left:auto;display:flex;gap:22px;font-size:13px;color:var(--dim);position:relative;z-index:1}
+.hd nav a{text-decoration:none;position:relative;padding-bottom:3px;transition:color .2s}
+.hd nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--gold);
+  transform:scaleX(0);transform-origin:left;transition:transform .24s}
+.hd nav a:hover{color:var(--paper)}
+.hd nav a:hover::after{transform:scaleX(1)}
+.menu{display:none;margin-left:auto;width:42px;height:42px;place-items:center;cursor:pointer;
+  background:rgba(11,16,32,.6);color:var(--paper);border:2px solid rgba(124,154,224,.65);border-radius:6px}
+.menu svg{width:20px;height:20px}
+.menu[aria-expanded="true"]{border-color:var(--gold);color:var(--gold)}
+.drawer{display:none;position:absolute;top:calc(100% + 8px);right:var(--pad);z-index:2;
+  min-width:190px;padding:6px 0;
+  background:rgba(11,16,32,.97);backdrop-filter:blur(10px);
+  border:2px solid var(--gold-d);border-radius:6px;
+  box-shadow:inset 0 0 0 1px rgba(232,184,75,.16), 0 14px 34px rgba(0,0,0,.6)}
+.drawer.open{display:block}
+.drawer a{display:block;padding:11px 18px;font-size:13.5px;color:var(--paper);text-decoration:none;
+  border-bottom:1px solid rgba(124,154,224,.14)}
+.drawer a:last-child{border-bottom:0}
+.drawer a:hover{color:var(--gold);background:rgba(232,184,75,.08)}
+
+/* ヒーロー */
+/* ヒーローの高さ = 最初の1画面ちょうど。グラデーションが完全に黒くなる位置が、画面の下端と一致する */
+/* ブロックの位置:align-items を center で中央、flex-end で下寄せに戻る */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-start;overflow:hidden;background:#0B1020}
+.hero .bg{position:absolute;inset:0}
+/* 動画・タイトル画とも横幅いっぱいに合わせる */
+.hero .bg video,.hero .bg .ti{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 55%;filter:brightness(.62)}
+.hero .bg video{opacity:1;transition:opacity 1.6s ease}
+.hero .bg video.gone{opacity:0}
+.hero .bg .ti{opacity:0;transition:opacity 1.6s ease;
+  /* タイトル画は縦長。横長の画面では上下が大きく切れるので、
+     4人の顔が画面の中ほどに来る位置で止める(縦長の画面では効かない) */
+  object-position:center 80%}
+.hero .bg .ti.show{opacity:1}
+/* 下寄りにだけかける。上と中盤は素のまま見せる */
+.hero .vg{position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(11,16,32,.52) 0%,rgba(11,16,32,.22) 26%,rgba(11,16,32,0) 48%,rgba(11,16,32,0) 72%,
+  rgba(11,16,32,.26) 86%,rgba(11,16,32,.74) 95%,#0B1020 100%)}
+.hero .wrap{position:relative;width:100%;padding-top:clamp(28px,3vh,42px);padding-bottom:40px;text-align:center}
+.ctrls-l,.ctrls-r{position:absolute;top:16px;z-index:6}
+.ctrls-l{left:16px}
+.ctrls-r{right:16px}
+.ctrl{width:42px;height:42px;display:grid;place-items:center;cursor:pointer;
+  background:rgba(11,16,32,.66);color:var(--paper);border:2px solid rgba(124,154,224,.65);border-radius:6px;
+  backdrop-filter:blur(4px);transition:border-color .2s,color .2s,transform .16s}
+.ctrl:hover{border-color:var(--gold);color:var(--gold)}
+.ctrl:active{transform:translateY(1px)}
+.ctrl[aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}
+.ctrl svg{width:20px;height:20px}
+.logomark{display:block;width:min(78%,420px);height:auto;margin:0 auto clamp(-26px,-4.5vw,-8px);
+  filter:drop-shadow(0 6px 24px rgba(0,0,0,.75)) drop-shadow(0 0 40px rgba(232,184,75,.28))}
+h1{margin:0}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.catch{font-family:var(--dot);font-weight:700;font-size:clamp(15px,2.8vw,23px);color:#FFFFFF;letter-spacing:.08em;margin:0 0 10px;
+  text-shadow:0 2px 12px rgba(0,0,0,.9)}
+.sub{color:#E4EBF8;font-size:clamp(13px,2vw,15px);margin:0 auto 26px;max-width:28em;letter-spacing:.04em;
+  text-shadow:0 2px 12px rgba(0,0,0,.95)}
+.soon{display:inline-block;margin:0 0 13px;padding:4px 15px;
+  font-family:var(--dot);font-weight:700;font-size:12.5px;letter-spacing:.2em;color:var(--gold);
+  background:rgba(11,16,32,.55);border:1px solid var(--gold-d);border-radius:4px;
+  backdrop-filter:blur(4px);text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.stores{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.store{position:relative;display:inline-flex;align-items:center;gap:11px;text-decoration:none;
+  background:linear-gradient(180deg,rgba(24,34,66,.94),rgba(13,19,40,.94));
+  color:var(--paper);border:2px solid var(--gold-d);border-radius:6px;padding:10px 18px;
+  backdrop-filter:blur(4px);transition:border-color .2s,transform .16s,box-shadow .2s;
+  box-shadow:inset 0 0 0 1px rgba(232,184,75,.16), 0 6px 20px rgba(0,0,0,.45)}
+.store::before,.store::after{content:"";position:absolute;width:5px;height:5px;background:var(--gold);opacity:.85}
+.store::before{left:3px;top:3px}
+.store::after{right:3px;bottom:3px}
+.store:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:inset 0 0 0 1px rgba(232,184,75,.3), 0 9px 24px rgba(0,0,0,.5)}
+.store:active{transform:translateY(1px)}
+/* ストアの公式バッジ。加工せずそのまま置く */
+.badge{display:inline-flex;align-items:center}
+.badge img{height:40px;width:auto;filter:drop-shadow(0 6px 20px rgba(0,0,0,.45))}
+.badge.soonbtn{opacity:.6;cursor:default}
+/* 配信前。ストアのURLが決まるまではリンクにしない */
+.store.soonbtn{cursor:default;opacity:.6}
+.store.soonbtn:hover{border-color:var(--gold-d);transform:none;
+  box-shadow:inset 0 0 0 1px rgba(232,184,75,.16), 0 6px 20px rgba(0,0,0,.45)}
+.store.soonbtn:active{transform:none}
+.store svg{width:22px;height:22px;flex:none}
+.store .t{display:flex;flex-direction:column;align-items:flex-start;line-height:1.2}
+.store .t small{font-size:9px;letter-spacing:.16em;color:var(--dim);text-transform:uppercase}
+.store .t b{font-family:var(--dot);font-size:14.5px;letter-spacing:.06em;font-weight:700;color:#FFF3D4}
+.freeline{margin-top:16px;font-size:12px;color:#CBD6EC;text-shadow:0 2px 10px rgba(0,0,0,.95)}
+@media (prefers-reduced-motion:reduce){
+  .hero .bg video{display:none}
+  .hero .bg .ti{opacity:1;transition:none}
+  .ctrls-l{display:none}
+}
+
+/* セクション */
+section{padding:clamp(56px,9vh,96px) 0;position:relative}
+/* 1つおきに薄い帯を敷いて、話の切れ目を目で分かるようにする */
+section.band{background:linear-gradient(180deg,rgba(18,26,51,.62),rgba(13,19,40,.62));
+  border-top:1px solid rgba(61,85,144,.38);border-bottom:1px solid rgba(61,85,144,.38)}
+h2{font-family:var(--dot);font-weight:700;font-size:clamp(23px,3.8vw,33px);letter-spacing:.12em;
+  margin:0 0 16px;padding-bottom:15px;position:relative}
+h2::before{content:"▶ ";color:var(--gold);font-size:.72em;vertical-align:.08em}
+h2::after{content:"";position:absolute;left:0;bottom:0;width:64px;height:3px;
+  background:linear-gradient(90deg,var(--gold),rgba(232,184,75,0))}
+.sublead{color:var(--dim);margin:0 0 32px;font-size:15.5px;max-width:34em;line-height:1.9}
+
+/* 診断 */
+.diag{text-align:center}
+.diag .q{font-family:var(--dot);font-weight:700;font-size:clamp(20px,4.2vw,34px);letter-spacing:.06em;line-height:1.6;margin:0 0 24px;color:#FFF3D4}
+.diag p{color:var(--dim);max-width:30em;margin:0 auto 16px;font-size:15.5px;line-height:2}
+.diag strong{color:var(--paper);font-weight:700}
+
+/* 戦闘の流れ */
+.steps{display:grid;gap:12px;counter-reset:st}
+.step{display:grid;grid-template-columns:52px 1fr;gap:18px;align-items:start;padding:22px 24px}
+.step .n{font-family:var(--dot);font-weight:700;font-size:20px;color:var(--gold);border:2px solid var(--gold-d);border-radius:5px;
+  width:40px;height:40px;display:grid;place-items:center}
+.step h3{font-family:var(--dot);font-weight:700;font-size:17px;letter-spacing:.08em;margin:6px 0 9px;color:#FFF3D4}
+.step p{margin:0;font-size:14.5px;color:var(--dim);line-height:1.9}
+.step.bad .n{color:var(--ng);border-color:#7A3A34}
+.step.good .n{color:var(--ok);border-color:#2E6B4E}
+
+/* スクリーンショット */
+.shots{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.shot{margin:0}
+.shot img{width:100%;border-radius:10px;border:2px solid rgba(124,154,224,.45);box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.shot figcaption{margin-top:13px;font-size:13.5px;color:var(--dim);text-align:center;line-height:1.7}
+
+/* 紹介動画 */
+.prwrap{display:flex;justify-content:center}
+.prbox{position:relative;width:min(320px,78vw);border:3px solid var(--edge);border-radius:8px;overflow:hidden;
+  background:#000;box-shadow:inset 0 0 0 2px rgba(124,154,224,.26), 0 14px 40px rgba(0,0,0,.6)}
+.prbox video{display:block;width:100%;height:auto}
+
+/* キャラクター */
+.chartabs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.chartab{position:relative;cursor:pointer;padding:12px 8px 14px;text-align:center;
+  background:linear-gradient(180deg,rgba(24,34,66,.7),rgba(13,19,40,.7));
+  border:2px solid rgba(124,154,224,.34);border-radius:6px;
+  transition:border-color .2s,background .2s,transform .16s}
+.chartab:hover{border-color:rgba(232,184,75,.7);transform:translateY(-2px)}
+.chartab[aria-selected="true"]{border-color:var(--gold);
+  background:linear-gradient(180deg,rgba(40,52,92,.9),rgba(18,26,48,.9));
+  box-shadow:inset 0 0 0 1px rgba(232,184,75,.28), 0 8px 24px rgba(0,0,0,.45)}
+.chartab img{width:100%;height:auto;max-width:132px;margin:0 auto 8px;display:block;
+  background:radial-gradient(circle at 50% 46%, rgba(124,154,224,.3), rgba(11,16,32,0) 70%);
+  border-radius:8px}
+.chartab .nm{font-family:var(--dot);font-weight:700;font-size:15px;letter-spacing:.1em;color:var(--gold);line-height:1.3}
+.chartab .rl{font-size:10.5px;letter-spacing:.14em;color:var(--dim2)}
+.chartab:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+.charbody{padding:26px 28px}
+.charbody .hd2{display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.charbody .hd2 b{font-family:var(--dot);font-size:21px;letter-spacing:.1em;color:var(--gold);font-weight:700}
+.charbody .hd2 span{font-size:11.5px;letter-spacing:.16em;color:var(--dim2)}
+.charbody .quote{font-size:15.5px;color:#FFF3D4;margin:0 0 18px;line-height:1.95}
+.charbody dl{margin:0;display:grid;grid-template-columns:104px 1fr;gap:10px 18px;
+  border-top:1px solid rgba(124,154,224,.22);padding-top:16px}
+.charbody dt{font-family:var(--dot);font-weight:700;font-size:12px;letter-spacing:.1em;color:var(--edge-hi);padding-top:3px}
+.charbody dd{margin:0;font-size:14.5px;color:var(--dim);line-height:1.9}
+
+/* 機能 */
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.feat{padding:24px 22px}
+.feat h3{font-family:var(--dot);font-weight:700;font-size:16.5px;letter-spacing:.08em;margin:0 0 11px;color:var(--gold)}
+.feat p{margin:0;font-size:14.5px;color:var(--dim);line-height:1.9}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.tag{font-size:11.5px;border:1px solid rgba(124,154,224,.45);border-radius:4px;padding:3px 9px;color:var(--dim)}
+.lv{display:grid;gap:8px;margin-top:14px}
+.lv div{display:flex;gap:12px;align-items:baseline;font-size:13px;color:var(--dim)}
+.lv b{font-family:var(--dot);font-weight:700;letter-spacing:.06em;flex:none;width:3.6em}
+.lv .a{color:var(--ok)}.lv .b{color:var(--gold)}.lv .c{color:var(--ng)}
+
+/* 原則 */
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.rule{padding:22px 24px}
+.rule h3{font-family:var(--dot);font-weight:700;font-size:14.5px;letter-spacing:.08em;margin:0 0 10px}
+.rule p{margin:0;font-size:13px;color:var(--dim);line-height:1.85}
+
+/* 作者 */
+.maker{padding:30px}
+.maker p{margin:0 0 14px;font-size:14.5px;color:var(--dim)}
+.maker p:last-child{margin:0}
+.maker .line{font-family:var(--dot);font-weight:700;font-size:clamp(15px,2.6vw,20px);color:var(--gold);letter-spacing:.06em;line-height:1.7;margin-bottom:18px}
+
+/* 料金 */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.plan{padding:26px 24px}
+.plan.prem{border-color:var(--gold);box-shadow:inset 0 0 0 2px rgba(232,184,75,.28),0 10px 34px rgba(0,0,0,.5)}
+.plan.prem::before,.plan.prem::after{background:var(--gold)}
+.plan .name{font-family:var(--dot);font-weight:700;font-size:17px;letter-spacing:.14em;color:var(--gold);margin-bottom:15px}
+.plan ul{list-style:none;margin:0;padding:0;font-size:14.5px}
+.plan li{padding:9px 0 9px 26px;position:relative;border-top:1px solid rgba(124,154,224,.2);color:var(--dim)}
+.plan li:first-child{border-top:0}
+.plan li::before{content:"✓";position:absolute;left:2px;color:var(--ok);font-weight:700}
+.plan .fine{margin:16px 0 0;font-size:11.5px;color:var(--dim2);line-height:1.75}
+
+/* FAQ */
+.faq{display:grid;gap:11px}
+.faq details{padding:17px 22px}
+.faq summary{cursor:pointer;list-style:none;font-weight:700;font-size:15.5px;display:flex;gap:12px;align-items:flex-start;color:#FFF3D4}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"?";font-family:var(--dot);font-weight:700;color:var(--gold);flex:none}
+.faq p{margin:14px 0 0 26px;font-size:14px;color:var(--dim);line-height:1.95}
+.faq summary:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+footer{border-top:2px solid rgba(61,85,144,.6);padding:32px 0 46px;margin-top:26px}
+footer .wrap{display:flex;gap:20px;flex-wrap:wrap;align-items:center;font-size:12.5px;color:var(--dim2)}
+footer .flogo{height:40px;width:auto;filter:drop-shadow(0 2px 8px rgba(0,0,0,.6))}
+footer a{text-decoration:none;color:var(--dim)}
+footer a:hover{color:var(--paper)}
+footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
+.legal{width:100%;border-top:1px solid rgba(61,85,144,.4);margin-top:18px;padding-top:16px;font-size:11px;line-height:1.8;color:var(--dim2)}
+
+@media(max-width:820px){
+  .feats,.rules,.plans{grid-template-columns:1fr}
+  .shots{grid-template-columns:1fr 1fr;gap:12px}
+  .chartabs{grid-template-columns:repeat(4,1fr);gap:7px}
+  .chartab{padding:8px 4px 10px}
+  .chartab .nm{font-size:12.5px}
+  .chartab .rl{font-size:9px}
+  .charbody dl{grid-template-columns:1fr;gap:2px 0}
+  .charbody dt{padding-top:10px}
+  .hd nav{display:none}
+  .menu{display:grid;margin-left:auto}
+  .hd .logo img{height:42px}
+  .step{grid-template-columns:1fr;gap:10px}
+}
+</style>
+</head>
+<body>
+
+<header class="hd" id="hd">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="WORDRIA"><img src="img/logo.png" alt="WORDRIA" width="1200" height="659"></a>
+    <nav><a href="#pv">紹介動画</a><a href="#shots">画面</a><a href="#battle">遊び方</a><a href="#chars">仲間</a><a href="#price">料金</a><a href="#faq">よくある質問</a></nav>
+    <button class="menu" id="menu" type="button" aria-expanded="false" aria-controls="drawer" aria-label="メニュー">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <div class="drawer" id="drawer">
+    <a href="#pv">紹介動画</a>
+    <a href="#shots">画面</a>
+    <a href="#battle">遊び方</a>
+    <a href="#chars">仲間</a>
+    <a href="#price">料金</a>
+    <a href="#faq">よくある質問</a>
+  </div></div>
+</header>
+
+<div class="hero" id="top">
+  <div class="bg">
+    <video id="opv" src="img/op.mp4" muted playsinline autoplay preload="auto" aria-hidden="true"></video>
+    <img class="ti" id="titleimg" src="img/title.jpg" alt="WORDRIA のタイトル画面" fetchpriority="high">
+  </div>
+  <audio id="bgm" preload="none"></audio>
+  <div class="vg"></div>
+  <div class="ctrls-l">
+    <button class="ctrl" id="replay" type="button" aria-label="オープニングをもう一度見る">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 12a9 9 0 109-9 9 9 0 00-6.4 2.7L3 8"/><path d="M3 3v5h5"/></svg>
+    </button>
+  </div>
+  <div class="ctrls-r">
+    <button class="ctrl" id="snd" type="button" aria-pressed="false" aria-label="音声">
+      <svg id="sndicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 9h3l5-4v14l-5-4H4z"/><path d="M17 9l4 6M21 9l-4 6"/></svg>
+    </button>
+  </div>
+  <div class="wrap">
+    <img class="logomark" src="img/logo.png" alt="WORDRIA" fetchpriority="high" width="1200" height="659">
+    <h1 class="vh">WORDRIA</h1>
+    <p class="catch">単語帳を開くより、冒険しよう。</p>
+    <p class="sub">爽快コマンドバトル英単語RPG</p>
+    <p class="soon">近日公開</p>
+    <div class="stores">
+      <span class="badge soonbtn" aria-disabled="true">
+        <img src="img/badge/appstore-ja.png" alt="App Store からダウンロード" width="359" height="132">
+      </span>
+      <span class="badge soonbtn" aria-disabled="true">
+        <img src="img/badge/googleplay-ja.png" alt="Google Play で手に入れよう" width="270" height="80">
+      </span>
+    </div>
+    <p class="freeline">基本無料プレイ／アプリ内課金あり　—　App Store・Google Play</p>
+  </div>
+</div>
+
+<section class="diag"><div class="wrap">
+  <p class="q">めくる単語帳から、<br>戦う単語帳へ。</p>
+  <p>WORDRIA は、英単語の学習を目的としたRPGです。敵と戦い、冒険を進めていくうちに、単語が身につきます。</p>
+  <p>覚える作業としてではなく、<strong>遊びとして続けられる形</strong>にしました。</p>
+</div></section>
+
+<section id="pv" class="band"><div class="wrap">
+  <h2>紹介動画</h2>
+  <div class="prwrap">
+    <div class="prbox">
+      <video src="img/pr.mp4" poster="img/title.jpg" controls playsinline preload="metadata" muted></video>
+    </div>
+  </div>
+</div></section>
+
+<section id="shots"><div class="wrap">
+  <h2>画面</h2>
+  <div class="shots">
+    <figure class="shot"><img src="img/shot-quiz.jpg" alt="出題画面" loading="lazy"><figcaption>4つの選択肢から選ぶ</figcaption></figure>
+    <figure class="shot"><img src="img/shot-boss.jpg" alt="戦闘画面" loading="lazy"><figcaption>コマンドバトルで戦う</figcaption></figure>
+    <figure class="shot"><img src="img/shot-wordbook.jpg" alt="単語帳画面" loading="lazy"><figcaption>覚えた単語がたまる</figcaption></figure>
+    <figure class="shot"><img src="img/shot-records.jpg" alt="記録画面" loading="lazy"><figcaption>即答・曖昧・苦手が見える</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="battle" class="band"><div class="wrap">
+  <h2>遊び方</h2>
+  <p class="sublead">英単語のクイズに答えながら、コマンドバトルを進めます。</p>
+  <div class="steps">
+    <div class="win step">
+      <span class="n">1</span>
+      <div><h3>英単語が出る</h3><p>画面に出た英単語の意味を、4つの選択肢から選びます。すべての単語に読み上げ音声がついています。</p></div>
+    </div>
+    <div class="win step good">
+      <span class="n">2</span>
+      <div><h3>正解すると攻撃できる</h3><p>正解すると、敵にダメージを与えられます。答えるのが速いほど、ダメージが大きくなります。</p></div>
+    </div>
+    <div class="win step">
+      <span class="n">3</span>
+      <div><h3>続けて正解すると倍率が上がる</h3><p>テンポよく正解を重ねると倍率が上がり、一気に押し切れます。ひとつ迷った瞬間に途切れます。</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="chars"><div class="wrap">
+  <h2>仲間</h2>
+  <p class="sublead">王都グロッサ。人々から《声》が消え始めた大陸を、4人で旅します。</p>
+
+  <div class="chartabs" role="tablist" aria-label="仲間">
+    <div class="chartab" role="tab" tabindex="0" aria-selected="true"  data-c="yu">
+      <img src="img/party/yu.png" alt="" loading="lazy"><div class="nm">ユウ</div><div class="rl">勇者</div></div>
+    <div class="chartab" role="tab" tabindex="0" aria-selected="false" data-c="gai">
+      <img src="img/party/gai.png" alt="" loading="lazy"><div class="nm">ガイ</div><div class="rl">戦士</div></div>
+    <div class="chartab" role="tab" tabindex="0" aria-selected="false" data-c="rina">
+      <img src="img/party/rina.png" alt="" loading="lazy"><div class="nm">リナ</div><div class="rl">魔法使い</div></div>
+    <div class="chartab" role="tab" tabindex="0" aria-selected="false" data-c="mia">
+      <img src="img/party/mia.png" alt="" loading="lazy"><div class="nm">ミア</div><div class="rl">僧侶</div></div>
+  </div>
+
+  <div class="win charbody" id="charbody" role="tabpanel" aria-live="polite"></div>
+</div></section>
+
+<section id="feature" class="band"><div class="wrap">
+  <h2>できること</h2>
+  <p class="sublead">中学英語から、大学受験、TOEIC&reg;テスト頻出レベルの語彙まで、同じ仕組みで鍛えられます。</p>
+  <div class="feats">
+    <div class="win feat">
+      <h3>範囲を選べる</h3>
+      <p>学年を選ぶと、その範囲の単語が中心に出ます。大学受験の語彙でも、TOEIC&reg;テスト頻出レベルの語彙でも遊べます。</p>
+      <div class="tags"><span class="tag">中学1年〜高校3年</span><span class="tag">大学受験</span><span class="tag">TOEIC&reg;頻出帯</span></div>
+    </div>
+    <div class="win feat">
+      <h3>耳からも覚える</h3>
+      <p>すべての単語に読み上げ音声がついています。目で見て選ぶだけでなく、音と一緒に覚えられます。</p>
+    </div>
+    <div class="win feat">
+      <h3>「つもり」が見える</h3>
+      <p>覚えた単語が「即答」「曖昧」「苦手」の3つに分かれて見えます。自分では覚えたつもりでいる「曖昧」な単語が分かります。</p>
+      <div class="lv">
+        <div><b class="a">即答</b><span>しっかり覚えている単語</span></div>
+        <div><b class="b">曖昧</b><span>覚えたつもりの単語</span></div>
+        <div><b class="c">苦手</b><span>これから覚える単語</span></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section id="price"><div class="wrap">
+  <h2>料金</h2>
+  <p class="sublead">無料のまま遊べます。プレミアムに登録すると、広告が非表示になり、日ごとの正答率の推移なども確認できます。</p>
+  <div class="plans">
+    <div class="win plan">
+      <div class="name">無料</div>
+      <ul>
+        <li>基本プレイ無料</li>
+        <li>学年を選んで出題範囲を変えられる</li>
+        <li>すべての単語に読み上げ音声つき</li>
+        <li>覚えた単語が「即答・曖昧・苦手」に分かれて見える</li>
+      </ul>
+      <p class="fine">アプリ内に広告が表示されます。プレイにはスタミナを消費し、広告を見ると回復します。</p>
+    </div>
+    <div class="win plan prem">
+      <div class="name">プレミアム</div>
+      <ul>
+        <li>スタミナ制限なし</li>
+        <li>広告オフ</li>
+        <li>出題レベルを1つに絞れる</li>
+        <li>学習の記録をすべて表示</li>
+      </ul>
+      <p class="fine">自動更新サブスクリプションです。価格・請求・解約はアプリ内の購入画面と、App Store / Google Play のサブスクリプション設定でご確認いただけます。</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="faq" class="band"><div class="wrap">
+  <h2>よくある質問</h2>
+  <div class="faq">
+    <details open><summary>解約はどうすればいいですか</summary>
+      <p>App Store または Google Play のサブスクリプション設定から、いつでも行えます。アプリを削除しただけでは解約されません。更新日の24時間前までに解約された場合、次回以降の課金は発生しません。解約後も、すでにお支払いいただいた期間の終了まではプレミアムをご利用いただけます。</p></details>
+    <details><summary>機種変更をしたらデータはどうなりますか</summary>
+      <p>引き継がれません。学習・進行データはお使いの端末内にのみ保存されるため、端末の初期化、アプリの削除、機種変更などにより失われます。</p></details>
+        <details><summary>TOEIC&reg; の公式アプリですか</summary>
+      <p>いいえ。本アプリは ETS および TOEIC&reg; プログラムとは一切関係ありません。</p></details>
+    <details><summary>不具合を見つけました</summary>
+      <p><a href="mailto:contact@bridge-ai-tokyo.com">contact@bridge-ai-tokyo.com</a> までご連絡ください。お使いの端末と、どの場面で起きたかを添えていただけると原因を特定しやすくなります。返信までに数日いただくことがあります。</p></details>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <img class="flogo" src="img/logo.png" alt="WORDRIA" width="1200" height="659" loading="lazy">
+  <span>&copy; 2026 Bridge AI</span>
+  <span class="r">
+    <a href="terms.html">利用規約</a>
+    <a href="privacy.html">プライバシーポリシー</a>
+    <a href="https://bridge-ai-tokyo.com/support.html">サポート</a>
+    <a href="mailto:contact@bridge-ai-tokyo.com">お問い合わせ</a>
+  </span>
+  <p class="legal">本アプリは ETS および TOEIC&reg; プログラムとは一切関係ありません。「TOEIC」は Educational Testing Service（ETS）の登録商標です。<br>
+  Apple、App Store は Apple Inc. の商標です。Google Play は Google LLC の商標です。</p>
+</div></footer>
+
+<script>
+(function(){
+  var v=document.getElementById('opv'), ti=document.getElementById('titleimg'),
+      snd=document.getElementById('snd'), ic=document.getElementById('sndicon'),
+      rep=document.getElementById('replay'), hd=document.getElementById('hd'),
+      hero=document.getElementById('top');
+
+  // ヘッダーは最初は出さず、ヒーローを抜けたあたりで出す
+  if(hd && hero){
+    var onScroll=function(){
+      hd.classList.toggle('show', window.scrollY > hero.offsetHeight * 0.65);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll);
+  }
+
+  // スマートフォンのメニュー
+  var mbtn=document.getElementById('menu'), drawer=document.getElementById('drawer');
+  if(mbtn && drawer){
+    mbtn.addEventListener('click', function(){
+      var open = drawer.classList.toggle('open');
+      mbtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    drawer.addEventListener('click', function(e){
+      if(e.target.tagName === 'A'){ drawer.classList.remove('open'); mbtn.setAttribute('aria-expanded','false'); }
+    });
+  }
+
+  if(!v||!ti) return;
+
+  // ロゴなし版(movie/out/OP_nologo.mp4)を使っているので、最後まで再生してよい。
+  // 終わり際の FADE 秒で、映像と音を一緒に落としてタイトル画へ渡す。
+  var FADE = 1.6;   // 映像と音のフェード時間(秒)。CSS側の transition と揃える
+  var fading = false;
+
+  // オープニングのあとは、バトルBGMを順番に流す
+  var bgm = document.getElementById('bgm');
+  var TRACKS = ['img/bgm/battle.mp3','img/bgm/battle2.mp3','img/bgm/boss.mp3','img/bgm/lastboss.mp3'];
+  var track = 0, bgmReady = false, opDone = false;
+
+  function playTrack(i){
+    if(!bgm) return;
+    track = i % TRACKS.length;
+    bgm.src = TRACKS[track];
+    bgm.volume = 0;
+    var pr = bgm.play();
+    if(pr && pr.catch) pr.catch(function(){});
+    // 立ち上がりをなめらかに
+    var t0 = performance.now();
+    (function up(now){
+      var k = Math.min(1, (now - t0) / 1200);
+      try{ bgm.volume = 0.55 * k; }catch(e){}
+      if(k < 1) requestAnimationFrame(up);
+    })(t0);
+  }
+  if(bgm){
+    bgm.addEventListener('ended', function(){ playTrack(track + 1); });
+  }
+  function startBgmIfWanted(){
+    if(bgm && opDone && !v.muted && bgm.paused) {
+      if(bgm.src) { bgm.play().catch(function(){}); } else { playTrack(track); }
+    }
+  }
+
+  var ICON_OFF='<path d="M4 9h3l5-4v14l-5-4H4z"/><path d="M17 9l4 6M21 9l-4 6"/>';
+  var ICON_ON='<path d="M4 9h3l5-4v14l-5-4H4z"/><path d="M16 8.5a5 5 0 010 7M19 6a9 9 0 010 12"/>';
+
+  // 映像はタイトル画へ、音は同じ時間をかけて絞る
+  function fadeOut(){
+    if(fading) return;
+    fading = true;
+    ti.classList.add('show');
+    v.classList.add('gone');
+    var from = v.volume, t0 = performance.now();
+    (function step(now){
+      var k = Math.min(1, (now - t0) / (FADE * 1000));
+      try{ v.volume = from * (1 - k); }catch(e){}
+      if(k < 1){ requestAnimationFrame(step); }
+      else { try{ v.pause(); }catch(e){} opDone = true; startBgmIfWanted(); }
+    })(t0);
+  }
+
+  v.addEventListener('timeupdate', function(){
+    if(fading || !isFinite(v.duration) || !v.duration) return;
+    if(v.duration - v.currentTime <= FADE) fadeOut();
+  });
+  v.addEventListener('ended', fadeOut);
+  v.addEventListener('error', fadeOut);
+
+  // 自動再生が止められた場合も、タイトル画像を出す
+  var p = v.play();
+  if(p && typeof p.catch === 'function'){ p.catch(fadeOut); }
+
+  // 音声は初期状態オフ。押すとオンになる
+  if(snd){
+    snd.addEventListener('click', function(){
+      v.muted = !v.muted;
+      var on = !v.muted;
+      snd.setAttribute('aria-pressed', on ? 'true' : 'false');
+      ic.innerHTML = on ? ICON_ON : ICON_OFF;
+      if(on){
+        // 一度ここで音を解禁しておく(あとから自動で鳴らせるようにする)
+        if(bgm && !bgmReady){
+          bgmReady = true;
+          bgm.muted = true;
+          var w = bgm.play();
+          if(w && w.then) w.then(function(){ bgm.pause(); bgm.muted = false; }).catch(function(){ bgm.muted = false; });
+          else { bgm.muted = false; }
+        }
+        if(v.paused && !fading){ v.play().catch(function(){}); }
+        startBgmIfWanted();
+      } else if(bgm){
+        bgm.pause();
+      }
+    });
+  }
+
+  // いつでもオープニングを頭から再生できる
+  if(rep){
+    rep.addEventListener('click', function(){
+      if(bgm) bgm.pause();
+      opDone = false;
+      fading = false;
+      try{ v.volume = 1; v.currentTime = 0; }catch(e){}
+      ti.classList.remove('show');
+      v.classList.remove('gone');
+      v.play().catch(fadeOut);
+    });
+  }
+})();
+</script>
+
+<script>
+(function(){
+  var DATA = {
+    yu:   { name:"ユウ", role:"勇者",
+            quote:"《声》が消えていく大陸で、旅に出ることを決めた少年。",
+            battle:"攻守のバランス型。回復と攻撃魔法の両方を覚えます。",
+            grow:"レベルが上がると、味方全員を回復する「パーティヒール」や、敵全体を攻撃する「インフェルノ」を覚えます。" },
+    gai:  { name:"ガイ", role:"戦士",
+            quote:"「妹の声を取り戻したい。その旅、オレも連れて行ってくれ！」",
+            battle:"HPと攻撃力が一番高く、4人の中で最も力が強い。魔法は使わず、攻撃で押します。",
+            grow:"レベルが上がるほど、HPと攻撃力の伸びが大きくなります。" },
+    rina: { name:"リナ", role:"魔法使い",
+            quote:"「その力…わたしも見届けたい。同行させてもらうわ。」",
+            battle:"攻撃魔法の専門家。炎の「フレイム」、氷の「フロスト」、雷の「ボルトストーム」を操ります。",
+            grow:"レベルが上がると、敵全体に雷の特大ダメージを与える「プラズマストーム」を覚えます。" },
+    mia:  { name:"ミア", role:"僧侶",
+            quote:"「あなたたちの旅、この身を捧げてお支えします。」",
+            battle:"回復と蘇生の担当。倒れた仲間を立て直します。",
+            grow:"レベルが上がると、味方全員のHPをまとめて回復する「サンクチュアリ」を覚えます。" }
+  };
+
+  var tabs = [].slice.call(document.querySelectorAll('.chartab'));
+  var body = document.getElementById('charbody');
+  if(!tabs.length || !body) return;
+
+  function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+  function row(label, val){ return val ? '<dt>'+label+'</dt><dd>'+esc(val)+'</dd>' : ''; }
+  function show(id){
+    var d = DATA[id]; if(!d) return;
+    tabs.forEach(function(t){ t.setAttribute('aria-selected', t.dataset.c === id ? 'true' : 'false'); });
+    body.innerHTML =
+      '<div class="hd2"><b>' + esc(d.name) + '</b><span>' + esc(d.role) + '</span></div>' +
+      '<p class="quote">' + esc(d.quote) + '</p>' +
+      '<dl>' +
+        row('バトル', d.battle) + row('成長', d.grow) +
+      '</dl>';
+  }
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){ show(t.dataset.c); });
+    t.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); show(t.dataset.c); }
+    });
+  });
+  show('yu');
+})();
+</script>
+
+</body>
+</html>
