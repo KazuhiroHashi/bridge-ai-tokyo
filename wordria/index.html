@@ -95,6 +95,27 @@ img{display:block;max-width:100%}
      4人の顔が画面の中ほどに来る位置で止める(縦長の画面では効かない) */
   object-position:center 80%}
 .hero .bg .ti.show{opacity:1}
+/* 横長の画面では、縦長の素材を横幅いっぱいに引き伸ばすと粗さが出る。
+   映像は元の大きさ(720px幅)に近い柱に収め、その後ろは同じ絵をぼかして敷く。
+   縦長の画面(スマートフォン)では今まで通り全画面。 */
+.bgblur{display:none}
+@media (min-width:1000px){
+  /* 柱の後ろに敷く絵。動画が始まるまではタイトル画 */
+  .hero::before{content:"";position:absolute;inset:-40px;z-index:0;
+    background:url("img/title.jpg") center 70%/cover no-repeat;
+    filter:blur(56px) brightness(.28) saturate(.75)}
+  /* 中央と同じ動画を、ぼかして左右いっぱいに流す。
+     小さく描いてから引き伸ばすことで、ぼかしの計算量を16分の1に抑えている */
+  .bgblur{display:block;position:absolute;top:50%;left:50%;
+    width:40%;height:40%;object-fit:cover;object-position:center 58%;
+    transform:translate(-50%,-50%) scale(2.9);transform-origin:center;
+    filter:blur(17px) brightness(.3) saturate(.75);
+    z-index:0;pointer-events:none;opacity:1;transition:opacity .9s ease}
+  .bgblur.gone{opacity:0}
+  .hero .bg{left:50%;right:auto;width:min(100%,760px);transform:translateX(-50%);
+    box-shadow:0 0 90px 46px rgba(11,16,32,.72)}
+}
+@media (prefers-reduced-motion:reduce){ .bgblur{display:none} }
 /* 下寄りにだけかける。上と中盤は素のまま見せる */
 .hero .vg{position:absolute;inset:0;background:
   linear-gradient(180deg,rgba(11,16,32,.52) 0%,rgba(11,16,32,.22) 26%,rgba(11,16,32,0) 48%,rgba(11,16,32,0) 72%,
@@ -185,7 +206,10 @@ section > .wrap{z-index:1}
 
 /* 最後の1体。押すとページの先頭へ戻る */
 .totop{display:flex;flex-direction:column;align-items:center;gap:10px;
-  text-decoration:none;padding:30px 0 4px}
+  text-decoration:none;padding:30px 0 4px;
+  opacity:0;transform:translateY(12px) scale(.96);
+  transition:opacity .9s ease,transform .9s ease}
+.totop.in{opacity:1;transform:none}
 .totop img{width:clamp(92px,11vw,132px);height:auto;
   filter:drop-shadow(0 12px 30px rgba(0,0,0,.6));transition:transform .25s ease}
 .totop span{font-family:var(--dot);font-weight:700;font-size:13px;letter-spacing:.16em;color:var(--gold);
@@ -198,6 +222,7 @@ section > .wrap{z-index:1}
 
 @media (prefers-reduced-motion:reduce){
   .foe{transition:none;transform:none}
+  .totop{transition:none;opacity:1;transform:none}
   .totop img{transition:none}
 }
 
@@ -364,6 +389,7 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
 </header>
 
 <div class="hero" id="top">
+  <video id="opvbg" class="bgblur" muted playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
   <div class="bg">
     <video id="opv" src="img/op.mp4" muted playsinline autoplay preload="metadata" aria-hidden="true"></video>
     <img class="ti" id="titleimg" src="img/title.jpg" alt="WORDRIA のタイトル画面" fetchpriority="high">
@@ -570,6 +596,7 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   var v=document.getElementById('opv'), ti=document.getElementById('titleimg'),
       snd=document.getElementById('snd'), ic=document.getElementById('sndicon'),
       rep=document.getElementById('replay'), hd=document.getElementById('hd'),
+      vb=document.getElementById('opvbg'),
       hero=document.getElementById('top');
 
   // ヘッダーは最初は出さず、ヒーローを抜けたあたりで出す
@@ -601,6 +628,26 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   var FADE = 0.9;   // 映像と音のフェード時間(秒)。CSS側の transition と揃える
   // 剣が光る場面は終わりの1.5秒ほど。ここを長く取ると閃光の途中で消えてしまう
   var fading = false;
+
+  // 左右のぼかし映像。横長の画面のときだけ読み込み、中央の動画に合わせて動かす
+  var WIDE = window.matchMedia('(min-width:1000px)');
+  function bgReady(){
+    if(!vb || !WIDE.matches) return false;
+    if(!vb.getAttribute('src')){ vb.src = v.getAttribute('src'); vb.load(); }
+    return true;
+  }
+  function bgSync(force){
+    if(!bgReady()) return;
+    if(force || Math.abs(vb.currentTime - v.currentTime) > 0.25){
+      try{ vb.currentTime = v.currentTime; }catch(e){}
+    }
+    if(v.paused){ try{ vb.pause(); }catch(e){} }
+    else if(vb.paused){ var q = vb.play(); if(q && q.catch) q.catch(function(){}); }
+  }
+  if(vb){
+    vb.addEventListener('error', function(){ vb.style.display = 'none'; });
+    WIDE.addEventListener('change', function(){ if(WIDE.matches) bgSync(true); });
+  }
 
   // オープニングのあとは、バトルBGMを順番に流す
   var bgm = document.getElementById('bgm');
@@ -638,6 +685,7 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
     fading = true;
     ti.classList.add('show');
     v.classList.add('gone');
+    if(vb){ vb.classList.add('gone'); setTimeout(function(){ try{ vb.pause(); }catch(e){} }, FADE*1000); }
     var from = v.volume, t0 = performance.now();
     (function step(now){
       var k = Math.min(1, (now - t0) / (FADE * 1000));
@@ -648,9 +696,12 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   }
 
   v.addEventListener('timeupdate', function(){
+    bgSync(false);
     if(fading || !isFinite(v.duration) || !v.duration) return;
     if(v.duration - v.currentTime <= FADE) fadeOut();
   });
+  v.addEventListener('play', function(){ bgSync(true); });
+  v.addEventListener('seeked', function(){ bgSync(true); });
   v.addEventListener('ended', fadeOut);
   v.addEventListener('error', fadeOut);
 
@@ -691,7 +742,9 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
       try{ v.volume = 1; v.currentTime = 0; }catch(e){}
       ti.classList.remove('show');
       v.classList.remove('gone');
+      if(vb){ vb.classList.remove('gone'); try{ vb.currentTime = 0; }catch(e){} }
       v.play().catch(fadeOut);
+      bgSync(true);
     });
   }
 })();
@@ -747,7 +800,7 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
 <script>
 /* 敵のイラストを、画面に入ったところで出す */
 (function(){
-  var foes = [].slice.call(document.querySelectorAll('.foe'));
+  var foes = [].slice.call(document.querySelectorAll('.foe, .totop'));
   if(!foes.length) return;
   if(!('IntersectionObserver' in window)){
     foes.forEach(function(f){ f.classList.add('in'); });
