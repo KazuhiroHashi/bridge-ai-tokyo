@@ -176,6 +176,8 @@ h1{margin:0}
 
 /* セクション */
 section{padding:clamp(56px,9vh,96px) 0;position:relative}
+/* 左下に敵がいるセクションは、敵の高さぶん下の余白を広げて文字と重ねない */
+section.blfoe{padding-bottom:max(clamp(56px,9vh,96px),104px)}
 /* 1つおきに薄い帯を敷いて、話の切れ目を目で分かるようにする */
 section.band{background:linear-gradient(180deg,rgba(18,26,51,.62),rgba(13,19,40,.62));
   border-top:1px solid rgba(61,85,144,.38);border-bottom:1px solid rgba(61,85,144,.38)}
@@ -201,7 +203,7 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:64px;height:3px;
 .foe.in{opacity:1;transform:none}
 /* 右上:セクションの上の余白へ / 左下:下の余白へ */
 .foe.tr{top:clamp(26px,5vh,62px);right:var(--ins)}
-.foe.bl{bottom:clamp(10px,2.4vh,30px);left:var(--ins)}
+.foe.bl{bottom:8px;left:var(--ins)}
 section > .wrap{z-index:1}
 
 /* 最後の1体。押すとページの先頭へ戻る */
@@ -426,7 +428,7 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   </div>
 </div>
 
-<section class="diag">
+<section class="diag blfoe">
   <img class="foe bl" src="img/foe/bat.webp" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
   <p class="q">めくる単語帳から、<br>戦う単語帳へ。</p>
@@ -434,7 +436,7 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   <p>覚える作業としてではなく、<strong>遊びとして続けられる形</strong>にしました。</p>
 </div></section>
 
-<section id="pv" class="band">
+<section id="pv" class="band blfoe">
   <img class="foe tr" src="img/foe/bee.webp" alt="" aria-hidden="true" loading="lazy">
   <img class="foe bl" src="img/foe/goblin.webp" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
@@ -446,7 +448,7 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   </div>
 </div></section>
 
-<section id="shots">
+<section id="shots" class="blfoe">
   <img class="foe tr" src="img/foe/worm.webp" alt="" aria-hidden="true" loading="lazy">
   <img class="foe bl" src="img/foe/rat.webp" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
@@ -459,7 +461,7 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   </div>
 </div></section>
 
-<section id="battle" class="band">
+<section id="battle" class="band blfoe">
   <img class="foe tr" src="img/foe/snake.webp" alt="" aria-hidden="true" loading="lazy">
   <img class="foe bl" src="img/foe/mush.webp" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
@@ -501,7 +503,7 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   <div class="win charbody" id="charbody" role="tabpanel" aria-live="polite"></div>
 </div></section>
 
-<section id="feature" class="band">
+<section id="feature" class="band blfoe">
   <img class="foe bl" src="img/foe/ghost.webp" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
   <h2>できること</h2>
@@ -528,7 +530,7 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   </div>
 </div></section>
 
-<section id="price">
+<section id="price" class="blfoe">
   <img class="foe tr" src="img/foe/wolf.webp" alt="" aria-hidden="true" loading="lazy">
   <img class="foe bl" src="img/foe/dragon.webp" alt="" aria-hidden="true" loading="lazy">
   <div class="wrap">
