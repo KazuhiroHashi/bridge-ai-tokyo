@@ -87,9 +87,9 @@ img{display:block;max-width:100%}
 /* 動画も縦長。横長の画面では上下が切れるので、4人の顔が見える位置まで下げる
    (縦長の画面では切れないので効かない) */
 .hero .bg video{object-position:center 58%}
-.hero .bg video{opacity:1;transition:opacity 1.6s ease}
+.hero .bg video{opacity:1;transition:opacity .9s ease}
 .hero .bg video.gone{opacity:0}
-.hero .bg .ti{opacity:0;transition:opacity 1.6s ease;
+.hero .bg .ti{opacity:0;transition:opacity .9s ease;
   /* タイトル画は縦長。横長の画面では上下が大きく切れるので、
      4人の顔が画面の中ほどに来る位置で止める(縦長の画面では効かない) */
   object-position:center 80%}
@@ -579,7 +579,8 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
 
   // ロゴなし版(movie/out/OP_nologo.mp4)を使っているので、最後まで再生してよい。
   // 終わり際の FADE 秒で、映像と音を一緒に落としてタイトル画へ渡す。
-  var FADE = 1.6;   // 映像と音のフェード時間(秒)。CSS側の transition と揃える
+  var FADE = 0.9;   // 映像と音のフェード時間(秒)。CSS側の transition と揃える
+  // 剣が光る場面は終わりの1.5秒ほど。ここを長く取ると閃光の途中で消えてしまう
   var fading = false;
 
   // オープニングのあとは、バトルBGMを順番に流す
