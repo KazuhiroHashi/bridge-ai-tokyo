@@ -143,7 +143,13 @@ h1{margin:0}
   font-family:var(--dot);font-weight:700;font-size:12.5px;letter-spacing:.2em;color:var(--gold);
   background:rgba(11,16,32,.55);border:1px solid var(--gold-d);border-radius:4px;
   backdrop-filter:blur(4px);text-shadow:0 2px 10px rgba(0,0,0,.9)}
-.stores{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.stores{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;align-items:flex-start}
+/* ストアごとの状態ラベル */
+.tag{font-family:var(--dot);font-weight:700;font-size:11.5px;letter-spacing:.18em;
+  padding:3px 12px;border-radius:4px;background:rgba(11,16,32,.55);
+  backdrop-filter:blur(4px);text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.tag.live{color:var(--ok);border:1px solid rgba(99,209,154,.5)}
+.tag.later{color:var(--gold);border:1px solid var(--gold-d)}
 .store{position:relative;display:inline-flex;align-items:center;gap:11px;text-decoration:none;
   background:linear-gradient(180deg,rgba(24,34,66,.94),rgba(13,19,40,.94));
   color:var(--paper);border:2px solid var(--gold-d);border-radius:6px;padding:10px 18px;
@@ -155,8 +161,12 @@ h1{margin:0}
 .store:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:inset 0 0 0 1px rgba(232,184,75,.3), 0 9px 24px rgba(0,0,0,.5)}
 .store:active{transform:translateY(1px)}
 /* ストアの公式バッジ。加工せずそのまま置く */
-.badge{display:inline-flex;align-items:center}
+.badge{display:inline-flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;
+  transition:transform .16s}
 .badge img{height:40px;width:auto;filter:drop-shadow(0 6px 20px rgba(0,0,0,.45))}
+a.badge:hover{transform:translateY(-2px)}
+a.badge:active{transform:translateY(1px)}
+a.badge:focus-visible{outline:2px solid var(--gold);outline-offset:6px;border-radius:4px}
 .badge.soonbtn{opacity:.6;cursor:default}
 /* 配信前。ストアのURLが決まるまではリンクにしない */
 .store.soonbtn{cursor:default;opacity:.6}
@@ -366,7 +376,7 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
   "operatingSystem": "iOS, Android",
   "gamePlatform": ["iOS", "Android"],
   "publisher": { "@type": "Organization", "name": "Bridge AI", "url": "https://bridge-ai-tokyo.com/" },
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY", "availability": "https://schema.org/PreOrder" }
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY", "availability": "https://schema.org/InStock" }
 }
 </script>
 </head>
@@ -415,13 +425,14 @@ footer .r{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
     <h1 class="vh">WORDRIA（ワードリア）— コマンドバトル英単語RPG</h1>
     <p class="catch">単語帳を開くより、冒険しよう。</p>
     <p class="sub">爽快コマンドバトル英単語RPG</p>
-    <p class="soon">近日公開</p>
     <div class="stores">
-      <span class="badge soonbtn" aria-disabled="true">
+      <a class="badge" href="https://apps.apple.com/jp/app/id6805523364" target="_blank" rel="noopener">
         <img src="img/badge/appstore-ja.png" alt="App Store からダウンロード" width="359" height="132">
-      </span>
+        <span class="tag live">公開中</span>
+      </a>
       <span class="badge soonbtn" aria-disabled="true">
         <img src="img/badge/googleplay-ja.png" alt="Google Play で手に入れよう" width="270" height="80">
+        <span class="tag later">近日公開</span>
       </span>
     </div>
     <p class="freeline">基本無料プレイ／アプリ内課金あり<br>App Store・Google Play</p>
