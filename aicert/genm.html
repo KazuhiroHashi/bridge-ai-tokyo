@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prep for NCA-GENM — offline practice questions for Generative AI Multimodal</title>
+<meta name="description" content="Prep for NCA-GENM is an offline iPhone and Android app with 300 practice questions and 1,200 answer-option explanations for the NVIDIA-Certified Associate Generative AI Multimodal exam. One-time purchase, no account, no tracking.">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root {
+    --brand: #1A906B; --brand-dark: #137355; --brand-light: #3DB48C;
+    --brand-wash: #E7F5F0; --on-brand: #FFFFFF;
+    --bg: #F5FCF9; --surface: #FFFFFF; --surface-2: #E9F5F0; --border: #CCE3D9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --brand: #40C298; --brand-dark: #1A906B; --brand-light: #6ED8B6;
+      --brand-wash: #0F2620; --on-brand: #04150F;
+      --bg: #0A1512; --surface: #111E1A; --surface-2: #182821; --border: #243C33;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html">Bridge&nbsp;<span>AI</span></a>
+    <nav>
+      <a href="index.html">Apps</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <p class="tag">NCA-GENM &mdash; NVIDIA-Certified Associate</p>
+  <h1>Prep for NCA-GENM</h1>
+  <p class="lead">300 practice questions on multimodal generative AI &mdash; images, audio,
+  video and the pipelines that carry them &mdash; with an explanation written for every one
+  of the four options. Entirely offline.</p>
+
+  <p>
+    <span class="soon">Coming soon: App Store</span>
+    <span class="soon">Coming soon: Google Play</span>
+  </p>
+  <!-- STORE LINKS: replace the two badges above with the real store URLs once live. -->
+
+  <ul class="facts card">
+    <li><b>Exam</b> <span>NCA-GENM, Generative AI Multimodal (NVIDIA-Certified Associate)</span></li>
+    <li><b>Questions</b> <span>300, split into 6 practice sets of 50</span></li>
+    <li><b>Explanations</b> <span>1,200 &mdash; one per answer option</span></li>
+    <li><b>Price</b> <span>USD 4.99, one-time. No in-app purchases</span></li>
+    <li><b>Network</b> <span>None. The app never connects</span></li>
+    <li><b>Platforms</b> <span>iOS and Android</span></li>
+  </ul>
+
+  <h2>The exam this app is for</h2>
+  <p>NCA-GENM is the associate-level exam for generative AI once text stops being the only
+  modality. Diffusion models and how they are conditioned, encoders for image, audio and
+  video, embeddings from two models that have to be made to line up, and the practical
+  handling that comes with media: sample rates, variable-length clips, padding and masks,
+  frames from a video.</p>
+  <p>It is the most hands-on of the three associate exams here. A surprising share of the
+  questions come from the data side &mdash; captions longer than the model accepts, clips
+  recorded with the gain too high, a train/test split that leaks because the clips were cut
+  from the same source video &mdash; and from the evaluation side, where a two-percent lead
+  after one day is not a result. If you have ever shipped a media pipeline, the scenarios
+  will feel familiar.</p>
+
+  <h2>What the 300 questions cover</h2>
+  <p>Seven domains, with the app's own distribution below. The shares are an editorial
+  choice for practice, not an official blueprint.</p>
+
+  <ul class="doms">
+    <li>
+      <div class="row"><span class="name">Experimentation</span><span class="share">72 questions &middot; 24%</span></div>
+      <div class="meter"><i style="width:24%"></i></div>
+      <p>Comparing two pipelines honestly: what an early A/B lead is worth, splits that do
+      not leak across clips from one source, controlling the variables when two prompt
+      phrasings are compared, and the pitfalls of grading a small model with a large one.</p>
+    </li>
+    <li>
+      <div class="row"><span class="name">Core Machine Learning and AI</span><span class="share">60 questions &middot; 20%</span></div>
+      <div class="meter"><i style="width:20%"></i></div>
+      <p>How diffusion actually works, inpainting a masked region, conditioning a generation
+      on an edge map when no wording gets you there, what raising decoder temperature does to
+      a caption, and adapting a model per customer without storing a full checkpoint each
+      time.</p>
+    </li>
+    <li>
+      <div class="row"><span class="name">Multimodal Data</span><span class="share">48 questions &middot; 16%</span></div>
+      <div class="meter"><i style="width:16%"></i></div>
+      <p>Resampling audio to the rate a model was trained on, batching clips of different
+      lengths without letting the padding leak into the output, representing a video clip for
+      a transformer, and what has to be true before two separately trained encoders can be
+      fused.</p>
+    </li>
+    <li>
+      <div class="row"><span class="name">Software Development</span><span class="share">48 questions &middot; 16%</span></div>
+      <div class="meter"><i style="width:16%"></i></div>
+      <p>Serving a preprocessing step, a vision encoder and a decoder as one server-side
+      pipeline, keeping similarity search fast over a large catalogue, choosing batch
+      processing when nobody is waiting, and monitoring whether output quality is still
+      holding after deployment.</p>
+    </li>
+    <li>
+      <div class="row"><span class="name">Data Analysis and Visualization</span><span class="share">30 questions &middot; 10%</span></div>
+      <div class="meter"><i style="width:10%"></i></div>
+      <p>Finding the problems in a dataset before fine-tuning on it: captions past the input
+      limit, clipped audio from a bad recording gain, clustering two million unlabelled
+      images to learn what categories exist, and what t-SNE shows that PCA does not.</p>
+    </li>
+    <li>
+      <div class="row"><span class="name">Performance Optimization</span><span class="share">30 questions &middot; 10%</span></div>
+      <div class="meter"><i style="width:10%"></i></div>
+      <p>Where the time actually goes: host-to-device copies stalling the loop, launch
+      overhead dominating at batch size one, what building a TensorRT engine changes, and
+      distilling a model that is accurate but too slow to ship.</p>
+    </li>
+    <li>
+      <div class="row"><span class="name">Trustworthy AI</span><span class="share">12 questions &middot; 4%</span></div>
+      <div class="meter"><i style="width:4%"></i></div>
+      <p>Layered defences on an image-generation service, watermarking published output,
+      consent and provenance when face data was scraped, and what a Shapley-value attribution
+      does and does not tell a reviewer about one prediction.</p>
+    </li>
+  </ul>
+
+  <h2>How you study with it</h2>
+  <ul>
+    <li><b>Six sets of 50,</b> each mixing all seven domains, so the small domains still
+      appear in every rehearsal instead of being skipped.</li>
+    <li><b>Exam mode</b> runs the set against a clock with no feedback until the end.
+      <b>Practice mode</b> explains each answer on the spot.</li>
+    <li><b>Domain scoring</b> after every set. On this exam the split is usually clean:
+      people who work with models score on the core and optimisation domains and lose points
+      on data handling, or exactly the reverse.</li>
+    <li><b>Wrong answers and bookmarks</b> become their own review runs, which is the fastest
+      way to clear a domain you keep missing.</li>
+    <li><b>Four explanations per question,</b> because in this bank the distractors are mostly
+      techniques that are real and simply solve a different problem &mdash; upscaling instead
+      of conditioning, a bigger batch instead of a faster kernel.</li>
+  </ul>
+
+  <div class="note">
+    <p><b>About the timer.</b> Exam mode in this app uses 50 questions in 60 minutes and
+    reports 70% as a target. Those numbers are this app's own settings for practice. The
+    official exam format is set by NVIDIA, and no passing score is published for this
+    certification, so 70% is a personal threshold and nothing more. Check NVIDIA's own exam
+    page for the current format before you book.</p>
+  </div>
+
+  <h2>Questions people ask</h2>
+
+  <h3>Is this only about image generation?</h3>
+  <p>No. Images are the largest single thread, but audio and video carry real weight &mdash;
+  sample rates, padding and masking, frame sampling, ASR data problems &mdash; and so does the
+  text side of a vision-language model. "Multimodal" in this exam means the joins between
+  modalities as much as the modalities themselves.</p>
+
+  <h3>Do I need a GPU or any software installed?</h3>
+  <p>Not for the app. It is a question bank on a phone. The questions do assume you have some
+  idea of what a training loop and an inference server look like, and the explanations fill in
+  the rest.</p>
+
+  <h3>I already passed NCA-GENL. Does that cover this one?</h3>
+  <p>Partly. The shared ground is the general machine-learning and evaluation material. Almost
+  everything specific &mdash; diffusion, encoders, media preprocessing, the optimisation
+  domain &mdash; is new, which is why <a href="genl.html">Prep for NCA-GENL</a> and this app
+  are separate banks with separate questions.</p>
+
+  <h3>How heavy is the maths?</h3>
+  <p>Light. You read a result, compare two options and decide what is sound. There is no
+  derivation of a diffusion objective, and no calculator is needed.</p>
+
+  <h3>Will it keep working with no signal?</h3>
+  <p>Yes. The whole bank is in the download, the app makes no network requests at all, and all
+  progress is stored on the device. See the <a href="privacy.html">privacy policy</a>.</p>
+
+  <h3>Where do the questions come from?</h3>
+  <p>They are written with AI and organised against the published NCA-GENM domains. They are
+  original practice material, not real exam questions, and no exam question is reproduced. Spot
+  a mistake? <a href="support.html">Write to us</a> and it is fixed for everyone in the next
+  update.</p>
+
+  <p class="backlink"><a href="index.html">&larr; All four apps</a></p>
+
+  <p class="note"><b>Disclaimer.</b> Prep for NCA-GENM is an independent study aid. It is not
+  affiliated with, authorized by, endorsed by, or sponsored by NVIDIA Corporation. NVIDIA,
+  NCA-GENM and the NVIDIA-Certified Associate program name are trademarks or certification
+  program names of NVIDIA Corporation, used here only to identify the exam this app helps you
+  prepare for. No certification result is guaranteed.</p>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <nav>
+      <a href="index.html">Apps</a>
+      <a href="aiio.html">NCA-AIIO</a>
+      <a href="genl.html">NCA-GENL</a>
+      <a href="aai.html">NCP-AAI</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy Policy</a>
+    </nav>
+    <p>Developed by Bridge AI &mdash; contact@bridge-ai-tokyo.com</p>
+    <p>Not affiliated with NVIDIA Corporation.</p>
+  </div>
+</footer>
+
+</body>
+</html>
