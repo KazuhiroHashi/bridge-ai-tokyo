@@ -6,212 +6,19 @@
 <title>Bridge AI</title>
 <meta name="description" content="Bridge AI は、資格・語学・AI の学習を助けるアプリとソフトウェアをつくっています。">
 <link rel="canonical" href="https://bridge-ai-tokyo.com/">
-<meta name="theme-color" content="#06090C">
+<meta name="theme-color" content="#F6F7FA">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Bridge AI">
 <meta property="og:description" content="資格・語学・AI の学習のためのアプリとWebソフトウェアを開発・販売しています。">
 <meta property="og:url" content="https://bridge-ai-tokyo.com/">
 <meta property="og:image" content="https://bridge-ai-tokyo.com/img/hero.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="img/favicon-512.png" type="image/png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;800&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500;600&display=swap">
-<style>
-:root{
-  --ink:#06090C; --ink2:#0B1015; --ink3:#121920;
-  --bone:#EDEEEA; --bone2:#E4E6E1;
-  --sub:#8F9CA6; --sub2:#5E6A73;
-  --line:rgba(237,238,234,.13); --line-d:rgba(6,9,12,.14);
-  --amber:#C9975A; --steel:#8CACC4; --live:#7FB79A;
-  --serif:"Noto Serif JP",serif;
-  --sans:"Noto Sans JP",system-ui,sans-serif;
-  --lat:"Manrope",system-ui,sans-serif;
-  --pad:clamp(22px,5vw,64px);
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;background:var(--ink);color:var(--bone);
-  font-family:var(--sans);font-weight:300;font-size:16px;line-height:2.0;
-  -webkit-font-smoothing:antialiased;overflow-x:hidden;
-}
-a{color:inherit}
-img{display:block;max-width:100%}
-.lat{font-family:var(--lat);font-weight:800;letter-spacing:.24em;text-transform:uppercase;font-size:10.5px}
-.wrap{max-width:1320px;margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
-.narrow{max-width:940px}
-
-/* ---------- header ---------- */
-.hd{position:fixed;inset:0 0 auto 0;z-index:60;transition:background .4s,border-color .4s,backdrop-filter .4s;border-bottom:1px solid transparent}
-.hd.stuck{background:rgba(6,9,12,.86);backdrop-filter:blur(14px);border-bottom-color:var(--line)}
-.hd .wrap{display:flex;align-items:center;height:84px;gap:34px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-.brand .g{width:30px;height:30px;flex:none;color:var(--bone)}
-.brand .n{font-family:var(--lat);font-weight:800;font-size:16px;letter-spacing:.11em}
-.nav{margin-left:auto;display:flex;gap:32px;font-size:12.5px;font-weight:400;letter-spacing:.06em;color:var(--sub)}
-.nav a{text-decoration:none;transition:color .25s}
-.nav a:hover{color:var(--bone)}
-.cta-s{font-family:var(--lat);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(237,238,234,.32);padding:12px 22px;transition:.28s}
-.cta-s:hover{background:var(--bone);color:var(--ink);border-color:var(--bone)}
-a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
-
-/* ---------- hero ---------- */
-.hero{position:relative;height:100svh;min-height:600px;display:flex;align-items:flex-end;overflow:hidden}
-.hero .ph{position:absolute;inset:0}
-.hero .ph img{width:100%;height:100%;object-fit:cover;animation:kb 26s ease-out forwards}
-@keyframes kb{from{transform:scale(1.0)}to{transform:scale(1.09)}}
-.hero .vg{position:absolute;inset:0;background:
-  linear-gradient(180deg,rgba(6,9,12,.66) 0%,rgba(6,9,12,.12) 34%,rgba(6,9,12,.55) 72%,rgba(6,9,12,.95) 100%),
-  linear-gradient(90deg,rgba(6,9,12,.6) 0%,rgba(6,9,12,0) 62%)}
-.hero .wrap{position:relative;padding-bottom:clamp(56px,9vh,104px);width:100%}
-.hero .lat{color:var(--amber);margin-bottom:26px}
-h1{
-  font-family:var(--serif);font-weight:500;
-  font-size:clamp(38px,7.2vw,88px);line-height:1.34;letter-spacing:.03em;
-  margin:0 0 28px;text-wrap:balance;
-}
-.hero .sub{font-size:clamp(14px,1.5vw,17px);color:#C6CDD2;max-width:30em;margin:0 0 40px;font-weight:300}
-.hbtns{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-.bt{display:inline-flex;align-items:center;gap:12px;text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.04em;padding:16px 30px;background:var(--bone);color:var(--ink);transition:.28s}
-.bt:hover{background:var(--amber);color:var(--ink)}
-.bt.o{background:transparent;color:var(--bone);border:1px solid rgba(237,238,234,.3)}
-.bt.o:hover{background:rgba(237,238,234,.1);border-color:var(--bone)}
-.bt svg{width:15px;height:15px}
-.sdown{position:absolute;right:var(--pad);bottom:clamp(56px,9vh,104px);display:flex;align-items:center;gap:14px;color:var(--sub)}
-.sdown .ln{width:70px;height:1px;background:linear-gradient(90deg,transparent,var(--sub));position:relative;overflow:hidden}
-.sdown .ln::after{content:"";position:absolute;inset:0;background:var(--bone);animation:sw 2.6s ease-in-out infinite}
-@keyframes sw{0%{transform:translateX(-100%)}60%,100%{transform:translateX(100%)}}
-
-/* ---------- reveal ---------- */
-.rv{opacity:0;transform:translateY(26px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
-.rv.in{opacity:1;transform:none}
-.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
-@media (prefers-reduced-motion:reduce){
-  .rv{opacity:1;transform:none;transition:none}
-  .hero .ph img{animation:none}
-  .sdown .ln::after{animation:none}
-  html{scroll-behavior:auto}
-}
-
-/* ---------- statement ---------- */
-.stmt{position:relative;padding:clamp(110px,16vh,190px) 0;overflow:hidden}
-.stmt .bgtex{position:absolute;inset:0;opacity:.22}
-.stmt .bgtex img{width:100%;height:100%;object-fit:cover}
-.stmt .bgtex::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--ink),rgba(6,9,12,.55) 50%,var(--ink))}
-.stmt .wrap{position:relative}
-.stmt h2{font-family:var(--serif);font-weight:500;font-size:clamp(25px,4.2vw,50px);line-height:1.62;letter-spacing:.04em;margin:26px 0 40px;text-wrap:balance}
-.stmt p{color:var(--sub);max-width:31em;font-size:15px;margin:0}
-.stmt .lat{color:var(--amber)}
-
-/* ---------- section frame ---------- */
-.sec{padding:clamp(90px,13vh,150px) 0}
-.shead{display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px;margin-bottom:clamp(30px,5vh,52px);border-bottom:1px solid var(--line);padding-bottom:28px}
-.shead h2{font-family:var(--serif);font-weight:500;font-size:clamp(23px,3.4vw,38px);letter-spacing:.06em;margin:14px 0 0;line-height:1.5}
-.shead .lat{color:var(--amber)}
-.shead .cnt{font-family:var(--lat);font-size:11px;letter-spacing:.2em;color:var(--sub2)}
-.snote{color:var(--sub);font-size:13.5px;margin:0 0 clamp(44px,7vh,76px)}
-
-/* ---------- products ---------- */
-.svc{display:grid;gap:clamp(70px,10vh,120px)}
-.row{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(34px,5vw,72px);align-items:center}
-.row:nth-child(even) .fig{order:2}
-.fig{position:relative;overflow:hidden;background:var(--ink2)}
-.fig img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
-.row:hover .fig img{transform:scale(1.05)}
-.fig .no{position:absolute;left:0;top:0;background:var(--ink);color:var(--amber);font-family:var(--lat);font-size:11px;letter-spacing:.22em;padding:12px 18px}
-.badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
-.bg{font-family:var(--lat);font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:5px 11px;border:1px solid var(--line);color:var(--sub)}
-.bg.live{border-color:rgba(127,183,154,.5);color:var(--live)}
-.bg.soon{border-style:dashed}
-.txt h3{font-family:var(--serif);font-weight:500;font-size:clamp(21px,2.6vw,30px);letter-spacing:.06em;margin:0 0 18px;line-height:1.55}
-.txt p{color:var(--sub);font-size:14.5px;margin:0 0 24px;max-width:30em}
-.txt ul{margin:0 0 28px;padding:0;list-style:none;border-top:1px solid var(--line)}
-.txt li{padding:13px 0;border-bottom:1px solid var(--line);font-size:13.5px;color:#B6BFC6;display:flex;gap:14px;align-items:baseline}
-.txt li::before{content:"";width:14px;height:1px;background:var(--amber);flex:none;transform:translateY(-4px)}
-.plink{display:inline-flex;align-items:center;gap:11px;text-decoration:none;font-family:var(--lat);font-weight:600;font-size:13px;letter-spacing:.06em;color:var(--bone);border-bottom:1px solid rgba(237,238,234,.35);padding-bottom:7px;transition:.28s}
-.plink:hover{color:var(--amber);border-color:var(--amber)}
-.plink svg{width:14px;height:14px}
-.plinks{display:flex;gap:30px;flex-wrap:wrap}
-
-/* ---------- courses ---------- */
-.clist{border-top:1px solid var(--line)}
-.crow{display:grid;grid-template-columns:196px 1fr auto;gap:28px;align-items:center;
-  padding:22px 8px 22px 4px;border-bottom:1px solid var(--line);text-decoration:none;
-  transition:background .3s,padding .3s}
-.crow:hover{background:rgba(237,238,234,.045);padding-left:14px}
-.cthumb{display:block;overflow:hidden;background:var(--ink2);border:1px solid var(--line);aspect-ratio:16/9}
-.cthumb img{width:100%;height:100%;object-fit:cover;display:block;
-  filter:saturate(.88) brightness(.94);transition:filter .4s,transform 1s cubic-bezier(.2,.7,.2,1)}
-.crow:hover .cthumb img{filter:none;transform:scale(1.04)}
-.ctitle{font-family:var(--lat);font-weight:600;font-size:15.5px;letter-spacing:.005em;color:var(--bone);display:block;line-height:1.45;margin-bottom:8px}
-.ccert{display:block;font-size:13px;color:#AEB8C0;line-height:1.7}
-.cmeta{display:block;font-size:12.5px;color:var(--sub);margin-top:5px}
-.cgo{display:inline-flex;align-items:center;gap:10px;font-family:var(--lat);font-weight:600;
-  font-size:12px;letter-spacing:.06em;color:var(--sub);white-space:nowrap;transition:color .3s}
-.crow:hover .cgo{color:var(--amber)}
-.cgo svg{width:13px;height:13px;transition:transform .3s}
-.crow:hover .cgo svg{transform:translateX(4px)}
-.cfoot{margin:26px 0 0;font-size:12.5px;color:var(--sub2)}
-
-/* ---------- image band ---------- */
-.band{height:clamp(280px,46vh,460px);overflow:hidden;background:var(--ink2)}
-.band img{width:100%;height:100%;object-fit:cover}
-
-/* ---------- outline ---------- */
-.out{display:grid;grid-template-columns:repeat(2,1fr);gap:0 clamp(30px,6vw,80px)}
-.out div{display:grid;grid-template-columns:130px 1fr;gap:20px;padding:19px 0;border-bottom:1px solid var(--line);font-size:14px}
-.out dt{color:var(--sub2);font-family:var(--lat);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;padding-top:5px}
-.out dd{margin:0;color:#C4CCD2;font-weight:400}
-
-/* ---------- contact ---------- */
-.contact{position:relative;overflow:hidden;min-height:clamp(460px,72vh,700px);display:flex;align-items:center}
-.contact .ph{position:absolute;inset:0}
-.contact .ph img{width:100%;height:100%;object-fit:cover}
-.contact .vg{position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,9,12,.94) 12%,rgba(6,9,12,.5) 78%,rgba(6,9,12,.7)),linear-gradient(0deg,rgba(6,9,12,.7),transparent 60%)}
-.contact .wrap{position:relative;width:100%}
-.contact .lat{color:var(--amber);display:block;margin-bottom:26px}
-.contact h2{font-family:var(--serif);font-weight:500;font-size:clamp(26px,4.6vw,54px);line-height:1.5;letter-spacing:.04em;margin:0 0 26px;text-wrap:balance}
-.contact p{color:#B9C2C8;max-width:29em;margin:0 0 40px;font-size:15px}
-
-/* ---------- mail ---------- */
-.mailbox{display:inline-flex;flex-direction:column;gap:14px;border-top:1px solid var(--line);padding-top:26px}
-.mailbox .mlbl{color:var(--sub2)}
-.mailto{
-  font-family:var(--lat);font-weight:600;letter-spacing:.01em;text-decoration:none;
-  font-size:clamp(19px,3.4vw,40px);line-height:1.2;color:var(--bone);
-  display:inline-block;padding-bottom:10px;position:relative;word-break:break-all;
-}
-.mailto::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:rgba(237,238,234,.35);transition:background .3s}
-.mailto:hover{color:var(--amber)}
-.mailto:hover::after{background:var(--amber)}
-.ml{color:#C4CCD2;text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px;transition:.25s}
-.ml:hover{color:var(--amber);border-color:var(--amber)}
-
-/* ---------- footer ---------- */
-footer{border-top:1px solid var(--line);padding:44px 0 54px}
-footer .wrap{display:flex;gap:26px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--sub2)}
-footer .fnav{margin-left:auto;display:flex;gap:26px}
-footer a{text-decoration:none;transition:color .25s}
-footer a:hover{color:var(--bone)}
-.legal{width:100%;border-top:1px solid var(--line);margin-top:24px;padding-top:22px;font-size:11px;line-height:1.85;color:var(--sub2);max-width:62em}
-
-@media(max-width:900px){
-  body{font-size:15px}
-  .nav{display:none}
-  .hero{height:92svh}
-  .sdown{display:none}
-  .row{grid-template-columns:1fr;gap:26px}
-  .row:nth-child(even) .fig{order:0}
-  .out{grid-template-columns:1fr}
-  .crow{grid-template-columns:1fr;gap:16px}
-  .cgo{margin-top:2px}
-  .shead{grid-template-columns:1fr}
-}
-@media(max-width:520px){
-  .out div{grid-template-columns:1fr;gap:2px}
-  .hbtns .bt{flex:1 1 100%;justify-content:center}
-}
-</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Manrope:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="assets/site.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -226,249 +33,168 @@ footer a:hover{color:var(--bone)}
 </head>
 <body>
 
-<header class="hd" id="hd"><div class="wrap">
-  <a class="brand" href="#top">
-    <svg class="g" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
-      <path d="M2 23h28M7 23V14M25 23V14M7 14c5.5-7.5 12.5-7.5 18 0"/>
-      <path d="M11 17.6V23M16 16.4V23M21 17.6V23"/>
-    </svg>
-    <span class="n">Bridge AI</span>
+<header class="hd"><div class="wrap">
+  <a class="brand" href="#top" aria-label="Bridge AI トップへ">
+    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 23h28M7 23V14M25 23V14M7 14c5.5-7.5 12.5-7.5 18 0"/><path d="M11 17.6V23M16 16.4V23M21 17.6V23"/></svg>
+    Bridge AI
   </a>
-  <nav class="nav">
-    <a href="#products">つくっているもの</a><a href="#udemy">Udemy</a><a href="#outline">運営者情報</a>
-  </nav>
-  <a class="cta-s" href="#contact">Contact</a>
+  <nav aria-label="ページ内"><a href="#wordria">WORDRIA</a><a href="#certhub">資格総合問題集</a><a href="#courses">Udemy</a><a href="#outline">運営者情報</a></nav>
+  <a class="btn" href="#contact">お問い合わせ</a>
 </div></header>
 
-<div class="hero" id="top">
-  <div class="ph"><img src="img/hero.jpg" alt="夜明け前の橋" fetchpriority="high"></div>
-  <div class="vg"></div>
-  <div class="wrap">
-    <div class="lat rv">Bridge AI — Learning Tools</div>
-    <h1 class="rv d1">学ぶための道具を、<br>つくる。</h1>
-    <p class="sub rv d2">資格・語学・AI。学習のためのアプリとWebソフトウェアを開発・販売しています。</p>
-    <div class="hbtns rv d3">
-      <a class="bt" href="#products">つくっているもの
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a class="bt o" href="#contact">お問い合わせ</a>
+<main id="top">
+
+<section class="hero"><div class="wrap">
+  <div>
+    <a class="pill rv" href="#wordria"><img src="img/icon-wordria.webp" alt="" width="22" height="22">WORDRIA　iOS・Android 配信中<span class="go">→</span></a>
+    <h1 class="rv">学ぶための<wbr>道具を、<br><em>つくる。</em></h1>
+    <p class="lead rv">資格・語学・AIの学習のためのアプリとWebソフトウェアを開発・販売しています。</p>
+    <div class="apps rv">
+      <a href="#wordria"><img src="img/icon-wordria.webp" alt="" width="44" height="44"><span>WORDRIA<small>英単語RPG</small></span></a>
+      <a href="#toeic"><img src="img/icon-toeic.webp" alt="" width="44" height="44"><span>TOEIC&reg; 総合問題集<small>英語</small></span></a>
+      <a href="#certhub"><img src="img/icon-certhub.webp" alt="" width="44" height="44"><span>資格総合問題集<small>AI・IT・クラウド</small></span></a>
     </div>
   </div>
-  <div class="sdown"><span class="lat" style="letter-spacing:.22em">Scroll</span><span class="ln"></span></div>
-</div>
-
-<section class="stmt">
-  <div class="bgtex"><img src="img/train.jpg" alt=""></div>
-  <div class="wrap narrow">
-    <div class="lat rv">Statement</div>
-    <h2 class="rv d1">資格・語学・AIの学習を、<br>ソフトウェアで助ける。</h2>
-    <p class="rv d2">Bridge AI は、学習のためのアプリとWebソフトウェアを開発・販売しています。ブラウザで動き、アカウント登録は必要ありません。</p>
-  </div>
-</section>
-
-<section class="sec" id="products"><div class="wrap">
-  <div class="shead rv">
-    <div><span class="lat">Products</span><h2>つくっているもの</h2></div>
-    <div class="cnt">02 / Titles</div>
-  </div>
-  <p class="snote rv">それぞれ独立して動きます。アカウント登録は要りません。</p>
-  <div class="svc">
-
-    <article class="row rv">
-      <div class="fig"><img src="img/study.jpg" alt="夜の学習机"><span class="no">01</span></div>
-      <div class="txt">
-        <div class="badges"><span class="bg live">公開中</span><span class="bg">Web</span><span class="bg">iOS</span></div>
-        <h3>TOEIC&reg; 総合問題集</h3>
-        <p>本番と同じ200問を1セットとして、Part 1〜7 を通しで解けます。全10セット・2,000問。解説と全訳つき。</p>
-        <ul>
-          <li>リスニングは米・英・豪・加の録音音声を同梱</li>
-          <li>Part 1 の写真、図表問題、予想スコア換算まで本番の形式に</li>
-          <li>ブラウザで動作。インストール不要。iOSアプリも公開中</li>
-          <li>セット1は無料で全機能を試せます</li>
-        </ul>
-        <div class="plinks">
-          <a class="plink" href="https://toeic.bridge-ai-tokyo.com/">Webで開く
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a class="plink" href="https://apps.apple.com/jp/app/id6800208707">App Store
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-      </div>
-    </article>
-
-    <article class="row rv">
-      <div class="fig"><img src="img/device.jpg" alt="端末の画面"><span class="no">02</span></div>
-      <div class="txt">
-        <div class="badges"><span class="bg soon">近日公開</span><span class="bg">iOS</span><span class="bg">Android</span></div>
-        <h3>AWS試験対策 模擬問題集シリーズ</h3>
-        <p>AWS認定資格(CLF/AIF/DEA/MLA/SAA/SAP)向けの非公式模擬問題集。資格ごとの単独アプリで、本番と同じ問題数構成を6セット収録。全問に選択肢別の解説つき、完全オフライン。</p>
-        <ul>
-          <li>AWS認定資格6種に対応。1アプリ1資格・買い切り¥600</li>
-          <li>選択肢ごとの解説と弱点自動復習を搭載</li>
-          <li>完全オフライン。広告なし・アカウント登録なし</li>
-        </ul>
-        <div class="plinks">
-          <a class="plink" href="cloudcert/">シリーズを見る
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-      </div>
-    </article>
-
-    <article class="row rv">
-      <div class="fig"><img src="img/wordria.jpg" alt="WORDRIA の画面"><span class="no">03</span></div>
-      <div class="txt">
-        <div class="badges"><span class="bg live">公開中</span><span class="bg">iOS</span><span class="bg">Android</span></div>
-        <h3>WORDRIA — コマンドバトル英単語RPG</h3>
-        <p>英単語のクイズに答えながら、コマンドバトルを進めるロールプレイングゲーム。敵と戦い、冒険を進めていくうちに単語が身につきます。</p>
-        <ul>
-          <li>中学英語から大学受験、TOEIC&reg;テスト頻出レベルの語彙まで</li>
-          <li>すべての単語に読み上げ音声つき</li>
-          <li>覚えた単語が「即答・曖昧・苦手」に分かれて見える</li>
-          <li>基本プレイ無料／アプリ内課金あり</li>
-        </ul>
-        <div class="plinks">
-          <a class="plink" href="wordria/">紹介ページを見る
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a class="plink" href="https://apps.apple.com/jp/app/id6805523364">App Store
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a class="plink" href="https://play.google.com/store/apps/details?id=com.bridgeai.wordria">Google Play
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-      </div>
-    </article>
-
-    <article class="row rv">
-      <div class="fig"><img src="img/aicert.jpg" alt="鉄橋のケーブルとアンカー"><span class="no">04</span></div>
-      <div class="txt">
-        <div class="badges"><span class="bg soon">近日公開</span><span class="bg">iOS</span><span class="bg">Android</span></div>
-        <h3>NVIDIA試験対策 模擬問題集シリーズ</h3>
-        <p>NVIDIA認定資格(NCA-AIIO／NCA-GENL／NCA-GENM／NCP-AAI)向けの非公式の模擬問題集。NVIDIAとの提携はありません。試験ごとの単独アプリで、全問に選択肢別の解説つき、完全オフラインで動きます。紹介ページは英語です。</p>
-        <ul>
-          <li>NVIDIA認定4試験に対応。1アプリ1試験の買い切り</li>
-          <li>模擬試験6セット。Associate 3種は各300問、NCP-AAI は390問</li>
-          <li>選択肢ごとの解説と、ドメイン別の弱点表示</li>
-          <li>完全オフライン。広告なし・アカウント登録なし</li>
-        </ul>
-        <div class="plinks">
-          <a class="plink" href="aicert/">シリーズを見る
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-      </div>
-    </article>
-
-    <article class="row rv">
-      <div class="fig"><img src="img/city.jpg" alt="夕暮れの都市と橋"><span class="no">05</span></div>
-      <div class="txt">
-        <div class="badges"><span class="bg soon">準備中</span></div>
-        <h3>次の製品</h3>
-        <p>資格学習とAIまわりの道具を、順次つくっています。公開できる段階になったら、ここに並べます。</p>
-      </div>
-    </article>
-
+  <div class="stage" aria-hidden="true">
+    <div class="blob"></div>
+    <div class="phone a"><img src="img/shot-quiz.webp" alt="" width="600" height="1300"></div>
+    <div class="phone b"><img src="img/shot-boss.webp" alt="" width="600" height="1300"></div>
   </div>
 </div></section>
 
-<div class="band"><img src="img/course.jpg" alt=""></div>
-
-<section class="sec" id="udemy"><div class="wrap">
-  <div class="shead rv">
-    <div><span class="lat">Courses</span><h2>Udemy</h2></div>
-    <div class="cnt">03 / Courses</div>
-  </div>
-  <p class="snote rv">NVIDIA認定資格の模擬試験を公開しています。いずれも6セット・全300問。解説つき。</p>
-
-  <!-- 講座を増やすときは、この <a class="crow"> を1つ複製して、href・サムネイル(img/udemy/)・
-       講座名・資格名を差し替えるだけ。href の ?referralCode= は消さないこと(講師リファラル)。
-       サムネイルは Udemy のコースページで画像アドレスをコピーし、750x422 版を
-       img/udemy/ に保存して 640px 幅で書き出す。 -->
-  <div class="clist rv d1">
-
-    <a class="crow" href="https://www.udemy.com/course/nca-aiio-practice-exams-6-tests-300-questions/?referralCode=52334A931257C3EC1E4A">
-      <span class="cthumb"><img src="img/udemy/nca-aiio.jpg" alt="NVIDIA NCA-AIIO Practice Exams: 6 Tests, 300 Questions 2026" loading="lazy" width="640" height="360"></span>
-      <span>
-        <span class="ctitle">NVIDIA NCA-AIIO Practice Exams: 6 Tests, 300 Questions 2026</span>
-        <span class="ccert">NVIDIA-Certified Associate: AI Infrastructure and Operations</span>
-        <span class="cmeta">模擬試験 6セット・全300問／各問に解説</span>
-      </span>
-      <span class="cgo">Udemyで見る
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </a>
-
-    <a class="crow" href="https://www.udemy.com/course/nca-genl-practice-exams-6-tests-300-questions/?referralCode=9CB9549D325D637B8EF8">
-      <span class="cthumb"><img src="img/udemy/nca-genl.jpg" alt="NVIDIA NCA-GENL Practice Exams: 6 Tests, 300 Questions" loading="lazy" width="640" height="360"></span>
-      <span>
-        <span class="ctitle">NVIDIA NCA-GENL Practice Exams: 6 Tests, 300 Questions</span>
-        <span class="ccert">NVIDIA-Certified Associate: Generative AI LLMs</span>
-        <span class="cmeta">模擬試験 6セット・全300問／各問に解説</span>
-      </span>
-      <span class="cgo">Udemyで見る
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </a>
-
-    <a class="crow" href="https://www.udemy.com/course/nca-genm-practice-exams-6-tests-300-questions/?referralCode=29B35CF42408268F52D1">
-      <span class="cthumb"><img src="img/udemy/nca-genm.jpg" alt="NVIDIA NCA-GENM Practice Exams: 6 Tests, 300 Questions" loading="lazy" width="640" height="360"></span>
-      <span>
-        <span class="ctitle">NVIDIA NCA-GENM Practice Exams: 6 Tests, 300 Questions</span>
-        <span class="ccert">NVIDIA-Certified Associate: Generative AI Multimodal</span>
-        <span class="cmeta">模擬試験 6セット・全300問／各問に解説</span>
-      </span>
-      <span class="cgo">Udemyで見る
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </a>
-
-  </div>
-  <p class="cfoot rv">講座は順次追加しています。購入・受講はUdemy上で行われます。</p>
-</div></section>
-
-<div class="band"><img src="img/cable.jpg" alt=""></div>
-
-
-
-<section class="sec" id="outline"><div class="wrap">
-  <div class="shead rv">
-    <div><span class="lat">Outline</span><h2>運営者情報</h2></div>
-  </div>
-  <div class="out rv d1">
-    <div><dt>Name</dt><dd>Bridge AI</dd></div>
-    <div><dt>Business</dt><dd>モバイルアプリケーションの開発・販売、Webコンテンツの制作・販売</dd></div>
-    <div><dt>Location</dt><dd>東京都</dd></div>
-    <div><dt>Contact</dt><dd><a class="ml" href="mailto:contact@bridge-ai-tokyo.com">contact@bridge-ai-tokyo.com</a></dd></div>
-  </div>
-</div></section>
-
-<section class="contact" id="contact">
-  <div class="ph"><img src="img/city.jpg" alt="夕暮れの都市と橋"></div>
-  <div class="vg"></div>
-  <div class="wrap">
-    <span class="lat rv">Contact</span>
-    <h2 class="rv d1">製品について、<br>お気軽にどうぞ。</h2>
-    <p class="rv d2">ご質問、不具合のご報告、ご要望はこちらまで。いただいた内容は次の版に反映します。</p>
-    <div class="mailbox rv d3">
-      <span class="lat mlbl">Mail</span>
-      <a class="mailto" href="mailto:contact@bridge-ai-tokyo.com">contact@bridge-ai-tokyo.com</a>
+<section class="sec" id="wordria" style="padding-top:clamp(24px,4vh,48px)"><div class="wrap">
+  <div class="shd rv"><div><span class="kick">Products — 01</span><h2>単語帳を開くより、<wbr>冒険しよう。</h2></div></div>
+  <article class="feat rv">
+    <div class="img"><img src="img/wordria-1200.webp" alt="WORDRIA のタイトル画面" width="1200" height="900" loading="lazy"></div>
+    <div class="txt">
+      <div class="app"><img src="img/icon-wordria.webp" alt="" width="72" height="72"><div><h3>WORDRIA</h3><div class="sub">コマンドバトル英単語RPG<span class="tag">配信中</span></div></div></div>
+      <p>英単語のクイズに答えながら、コマンドバトルを進めるロールプレイングゲーム。敵と戦い、冒険を進めていくうちに単語が身につきます。</p>
+      <ul class="chk">
+        <li>中学英語から大学受験、TOEIC&reg;テスト頻出レベルの語彙まで</li>
+        <li>すべての単語に読み上げ音声つき</li>
+        <li>覚えた単語が「即答・曖昧・苦手」に分かれて見える</li>
+        <li>基本プレイ無料／アプリ内課金あり</li>
+      </ul>
+      <div class="badges">
+        <a href="https://apps.apple.com/jp/app/id6805523364"><img src="img/appstore-ja.png" alt="App Store からダウンロード" width="359" height="132"></a>
+        <a href="https://play.google.com/store/apps/details?id=com.bridgeai.wordria"><img src="img/googleplay-ja.png" alt="Google Play で手に入れよう" width="270" height="80"></a>
+        <a class="more" href="wordria/">紹介ページ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
     </div>
+  </article>
+  <article class="mate rv" id="toeic">
+    <img src="img/icon-toeic.webp" alt="" width="64" height="64">
+    <div>
+      <b>TOEIC&reg; 総合問題集</b> <span class="tag">公開中</span> <span class="plat">WEB / iOS</span>
+      <p>本番と同じ200問を1セットとして、Part 1〜7 を通しで解けます。全10セット・2,000問。解説と全訳、米・英・豪・加の録音音声つき。セット1は無料で全機能を試せます。</p>
+    </div>
+    <div class="acts">
+      <a class="more" href="https://toeic.bridge-ai-tokyo.com/">Webで開く <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="more" href="https://apps.apple.com/jp/app/id6800208707">App Store <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </article>
+</div></section>
+
+<section class="sec" id="certhub" style="padding-top:0"><div class="wrap">
+  <div class="shd rv"><div><span class="kick pur">Products — 02</span><h2>27の資格試験を、<wbr>ひとつのアプリで。<br><em>しかも無料。</em></h2></div></div>
+  <article class="hub rv">
+    <h3 class="vh">AI・IT・クラウド 資格総合問題集</h3>
+    <figure class="banner"><img src="img/certhub-banner-1600.webp" srcset="img/certhub-banner-800.webp 800w, img/certhub-banner-1600.webp 1600w" sizes="(max-width:1240px) 92vw, 1100px" alt="AI・IT・クラウド 資格総合問題集 — アプリのアイコンと画面" width="1600" height="781" loading="lazy"></figure>
+    <div class="sub"><span class="tag">配信中</span><span class="plat">iOS / ANDROID</span></div>
+    <div class="stats">
+      <div><b>27<small>試験</small></b><span>AI・IT・クラウドの資格を<br>1つのアプリに</span></div>
+      <div><b>0<small>円</small></b><span>全試験・全問題を<br>無料で解ける</span></div>
+      <div><b>18,910<small>問</small></b><span>本番モードと<br>練習モード</span></div>
+    </div>
+    <p class="asof">2026年10月時点。無料版は20問ごとに広告が入ります。広告を消す「広告なしプラン」(有料)もあります。</p>
+    <div class="hubgrid">
+      <div class="exams">
+        <div><h4>AI・データ</h4><div class="chips"><span>G検定</span><span>生成AIパスポート</span><span>E資格</span><span>DS検定 リテラシーレベル</span><span>AI実装検定 A級</span><span>Python 3 エンジニア認定 基礎</span><span>Python 3 エンジニア認定 データ分析</span></div></div>
+        <div><h4>情報処理(IPA)</h4><div class="chips"><span>ITパスポート</span><span>情報セキュリティマネジメント</span><span>基本情報技術者 科目A</span><span>基本情報技術者 科目B</span><span>応用情報技術者</span><span>データベーススペシャリスト</span><span>システムアーキテクト</span></div></div>
+        <div><h4>クラウド</h4><div class="chips"><span>AWS Cloud Practitioner</span><span>AWS AI Practitioner</span><span>AWS Solutions Architect – Associate</span><span>AWS Data Engineer – Associate</span><span>AWS Machine Learning Engineer – Associate</span><span>AWS Solutions Architect – Professional</span><span>Microsoft Azure AI Fundamentals</span><span>Google Cloud Generative AI Leader</span></div></div>
+        <div><h4>NVIDIA(英語)</h4><div class="chips"><span>NCA-AIIO</span><span>NCA-GENL</span><span>NCA-GENM</span><span>NCP-GENL</span><span>NCP-AAI</span></div></div>
+      </div>
+      <ul class="chk pur">
+        <li>問題はすべてアプリに内蔵。機内モードでも学習できます</li>
+        <li>制限時間つきの本番モードと、1問ずつ答え合わせする練習モード</li>
+        <li>独自に作成した問題は、選択肢ごとに解説つき</li>
+        <li>間違えた問題は弱点復習で解き直せます</li>
+        <li>アカウント登録なし。学習の記録は端末の中だけに保存</li>
+      </ul>
+    </div>
+    <div class="badges">
+      <a href="https://apps.apple.com/jp/app/id6816374969"><img src="img/appstore-ja.png" alt="App Store からダウンロード" width="359" height="132"></a>
+      <a href="https://play.google.com/store/apps/details?id=jp.bridgeai.certhub"><img src="img/googleplay-ja.png" alt="Google Play で手に入れよう" width="270" height="80"></a>
+    </div>
+    <div class="links">
+      <a class="more" href="certhub/support.html">サポート <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="more" href="certhub/privacy.html">プライバシーポリシー <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <p class="fine">各試験の実施団体とは関係のない、非公式の学習用アプリです。IPA の試験は IPA が公表している過去問題・公開問題を出典つきで収録し、それ以外の問題は独自に作成しています。</p>
+  </article>
+</div></section>
+
+<section class="sec" id="courses" style="padding-top:0"><div class="wrap">
+  <div class="shd rv"><div><span class="kick">Courses</span><h2>Udemy</h2></div><p>NVIDIA認定資格とG検定の模擬試験を、Udemy で公開しています。各問に解説つき。</p></div>
+  <!-- 講座を増やすときは <a class="course"> を1つ複製し、href・サムネイル(img/udemy/)・講座名を差し替える。
+       href の ?referralCode= は消さないこと(講師リファラル)。 -->
+  <div class="courses rv">
+    <a class="course" href="https://www.udemy.com/course/nca-aiio-practice-exams-6-tests-300-questions/?referralCode=52334A931257C3EC1E4A">
+      <span class="th"><img src="img/udemy/nca-aiio.jpg" alt="" width="640" height="360" loading="lazy"></span>
+      <span class="in"><b>NVIDIA NCA-AIIO Practice Exams: 6 Tests, 300 Questions 2026</b><span class="c">NVIDIA-Certified Associate: AI Infrastructure and Operations</span><span class="go">Udemyで見る →</span></span>
+    </a>
+    <a class="course" href="https://www.udemy.com/course/nca-genl-practice-exams-6-tests-300-questions/?referralCode=9CB9549D325D637B8EF8">
+      <span class="th"><img src="img/udemy/nca-genl.jpg" alt="" width="640" height="360" loading="lazy"></span>
+      <span class="in"><b>NVIDIA NCA-GENL Practice Exams: 6 Tests, 300 Questions</b><span class="c">NVIDIA-Certified Associate: Generative AI LLMs</span><span class="go">Udemyで見る →</span></span>
+    </a>
+    <a class="course" href="https://www.udemy.com/course/nca-genm-practice-exams-6-tests-300-questions/?referralCode=29B35CF42408268F52D1">
+      <span class="th"><img src="img/udemy/nca-genm.jpg" alt="" width="640" height="360" loading="lazy"></span>
+      <span class="in"><b>NVIDIA NCA-GENM Practice Exams: 6 Tests, 300 Questions</b><span class="c">NVIDIA-Certified Associate: Generative AI Multimodal</span><span class="go">Udemyで見る →</span></span>
+    </a>
+    <a class="course" href="https://www.udemy.com/course/ncp-aai-practice-exams-6-tests-390-questions/?referralCode=CD80ED567F02DC2D398B">
+      <span class="th"><img src="img/udemy/ncp-aai.jpg" alt="" width="640" height="360" loading="lazy"></span>
+      <span class="in"><b>Practice Exams for NVIDIA NCP-AAI: 6 Tests, 390 Questions</b><span class="c">NVIDIA-Certified Professional: Agentic AI</span><span class="go">Udemyで見る →</span></span>
+    </a>
+    <a class="course" href="https://www.udemy.com/course/practice-exams-for-g-kentei-1000-questions/?referralCode=C5CDD66492A1CB7F88CB">
+      <span class="th"><img src="img/udemy/g-kentei.jpg" alt="" width="640" height="360" loading="lazy"></span>
+      <span class="in"><b>模擬試験5回分で仕上げる G検定 問題集 1000問</b><span class="c">JDLA ジェネラリスト検定(G検定)</span><span class="go">Udemyで見る →</span></span>
+    </a>
   </div>
-</section>
+</div></section>
 
-<footer><div class="wrap">
-  <span class="lat" style="letter-spacing:.11em;font-size:12px">Bridge AI</span>
-  <span>&copy; 2026 Bridge AI</span>
-  <span class="fnav"><a href="privacy.html">プライバシーポリシー</a><a href="support.html">サポート</a></span>
-  <p class="legal">TOEIC&reg;はエデュケーション・テスティング・サービス(ETS)の登録商標です。この製品はETSの検討を受けまたはその承認を得たものではありません。<br>本シリーズは Amazon Web Services, Inc.(AWS)およびその関連会社とは一切関係のない、非公式の学習用アプリです。AWSによる承認・後援・提携を受けていません。</p>
-</div></footer>
+<section class="sec" id="outline" style="padding-top:0"><div class="wrap">
+  <div class="shd rv"><div><span class="kick">Outline</span><h2>運営者情報</h2></div></div>
+  <!-- 屋号は『Bridge AI』(半角スペースあり)。開業届・D-U-N-S・Apple の登録名と照合されるので1文字も変えないこと -->
+  <div class="outline rv"><dl>
+    <div><dt>名称</dt><dd>Bridge AI</dd></div>
+    <div><dt>事業内容</dt><dd>モバイルアプリケーションの開発・販売、Webコンテンツの制作・販売</dd></div>
+    <div><dt>所在地</dt><dd>東京都</dd></div>
+    <div><dt>連絡先</dt><dd><a href="mailto:contact@bridge-ai-tokyo.com">contact@bridge-ai-tokyo.com</a></dd></div>
+  </dl></div>
+</div></section>
 
-<script>
-(function(){
-  var hd=document.getElementById('hd');
-  var onScroll=function(){ hd.classList.toggle('stuck', window.scrollY>40) };
-  onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+<section class="sec contact" id="contact" style="padding-top:0"><div class="wrap">
+  <div class="box rv">
+    <span class="kick">Contact</span>
+    <h2>製品について、<wbr>お気軽にどうぞ。</h2>
+    <p>ご質問、不具合のご報告、ご要望はこちらまで。いただいた内容は次の版に反映します。</p>
+    <a class="mail" href="mailto:contact@bridge-ai-tokyo.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>contact@bridge-ai-tokyo.com</a>
+  </div>
+</div></section>
 
-  var els=[].slice.call(document.querySelectorAll('.rv'));
-  if(!('IntersectionObserver' in window)){ els.forEach(function(e){e.classList.add('in')}); return }
-  var io=new IntersectionObserver(function(en){
-    en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target) } })
-  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
-  els.forEach(function(e){ io.observe(e) });
-})();
-</script>
+</main>
 
+<footer class="ft"><div class="wrap"><div class="row">
+  <div>
+    <nav aria-label="サイト"><a href="privacy.html">プライバシーポリシー</a><a href="support.html">サポート</a><a href="#contact">お問い合わせ</a></nav>
+    <p class="cp">&copy; 2026 Bridge AI</p>
+  </div>
+  <p class="legal">
+    <span>TOEIC&reg;はエデュケーション・テスティング・サービス(ETS)の登録商標です。この製品はETSの検討を受けまたはその承認を得たものではありません。</span>
+    <span>AI・IT・クラウド 資格総合問題集は、各試験の実施団体(JDLA・IPA・Amazon Web Services, Inc.・Microsoft Corporation・Google LLC・NVIDIA Corporation ほか)とは関係のない非公式の学習用アプリで、各団体による承認・後援・提携を受けていません。各試験の名称は、それぞれの団体の商標または登録商標です。</span>
+  </p>
+</div></div></footer>
+
+<script src="assets/site.js"></script>
 </body>
 </html>
