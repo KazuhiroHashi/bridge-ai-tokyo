@@ -28,4 +28,13 @@
       hs.forEach(function(h){ spy.observe(h); });
     }
   }
+  // 製品ページ:最初と最後のストアボタンが見えていないときだけ、画面下にダウンロード帯を出す
+  var dock=document.querySelector('.dock'), sts=[].slice.call(document.querySelectorAll('.stores'));
+  if(dock&&sts.length&&'IntersectionObserver' in window){
+    var vis=new Set();
+    var dio=new IntersectionObserver(function(es){ es.forEach(function(x){ x.isIntersecting?vis.add(x.target):vis.delete(x.target); });
+      var below=sts[0].getBoundingClientRect().bottom<0; dock.classList.toggle('on', vis.size===0&&below); });
+    sts.forEach(function(e){ dio.observe(e); });
+    window.addEventListener('scroll',function(){ dock.classList.toggle('on', vis.size===0&&sts[0].getBoundingClientRect().bottom<0); },{passive:true});
+  }
 })();
