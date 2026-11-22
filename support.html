@@ -39,7 +39,7 @@
     <p style="margin:0 0 6px"><strong><a href="mailto:contact@bridge-ai-tokyo.com">contact@bridge-ai-tokyo.com</a></strong></p>
     <p style="margin:0; color:var(--muted); font-size:0.88rem">
       個人で運営しているため、返信までに数日いただくことがあります。
-      不具合のご報告は、お使いの端末(iPhone / ブラウザ)と、どの問題で起きたかを
+      不具合のご報告は、お使いの端末(iPhone / Android / ブラウザ)と、どの問題で起きたかを
       添えていただけると原因を特定しやすくなります。
     </p>
   </div>
@@ -51,7 +51,7 @@
     <div class="a">
       <p>次の順に確認してください。</p>
       <p>1. 端末の音量が下がっていないか<br>
-         2. <strong>iPhone は本体側面のマナーモードのスイッチ</strong>がオンだと音が鳴りません。イヤホンを接続している場合は影響しません<br>
+         2. <strong>iPhone は本体側面のマナーモードのスイッチ</strong>がオンだと音が鳴りません。<strong>Android は「メディアの音量」</strong>が下がっていると音が鳴りません(着信音の音量とは別です)。イヤホンを接続している場合は影響しません<br>
          3. 他のアプリで音が鳴るか</p>
       <p>リスニングは録音した音声ファイルを再生しています。端末の読み上げ機能は使っていないため、設定によって声が変わることはありません。</p>
     </div>
@@ -60,7 +60,7 @@
   <details class="qa">
     <summary>購入したのに、問題が解放されません</summary>
     <div class="a">
-      <p><strong>iOSアプリの場合:</strong>ホーム画面の「購入を復元する」をお試しください。購入時と同じ Apple ID でサインインしている必要があります。</p>
+      <p><strong>iOS・Androidアプリの場合:</strong>ホーム画面の「購入を復元する」をお試しください。購入時と同じ Apple ID(iOS)または Google アカウント(Android)でサインインしている必要があります。</p>
       <p><strong>Web版の場合:</strong>合言葉の前後に余分な空白が入っていないか、全角文字になっていないかをご確認ください。大文字・小文字は区別しません。</p>
       <p>それでも解放されない場合は、上記のメールアドレスまでご連絡ください。</p>
     </div>
@@ -69,7 +69,7 @@
   <details class="qa">
     <summary>機種変更をしたら、購入した内容が消えました</summary>
     <div class="a">
-      <p><strong>iOSアプリ:</strong>新しい端末でアプリをインストールし、「購入を復元する」を押してください。購入時と同じ Apple ID であれば、追加の支払いなく元に戻ります。</p>
+      <p><strong>iOS・Androidアプリ:</strong>新しい端末でアプリをインストールし、「購入を復元する」を押してください。購入時と同じ Apple ID(iOS)または Google アカウント(Android)であれば、追加の支払いなく元に戻ります。</p>
       <p><strong>Web版:</strong>合言葉をもう一度入力してください。合言葉は何度でもお使いいただけます。</p>
       <p>なお、<strong>学習の記録(正答率・自己ベスト・解答の途中経過)は端末内にのみ保存</strong>しているため、機種変更では引き継がれません。個人情報を一切お預かりしない代わりに、記録も端末の外に出さない設計にしています。</p>
     </div>
@@ -91,7 +91,7 @@
   <details class="qa">
     <summary>オフラインで使えますか</summary>
     <div class="a">
-      <p><strong>iOSアプリは使えます。</strong>問題文・音声・画像をすべて本体に内蔵しているため、機内モードでも全機能が動きます。通信が必要なのは、購入と購入の復元を行うときだけです。</p>
+      <p><strong>iOS・Androidアプリは使えます。</strong>問題文・音声・画像をすべて本体に内蔵しているため、機内モードでも全機能が動きます。通信が必要なのは、購入と購入の復元を行うときだけです。</p>
       <p>Web版はページの読み込みに通信が必要です。</p>
     </div>
   </details>
@@ -105,11 +105,13 @@
 
   <!-- 返金の案内は、目立たせないよう末尾側に置いている。
        ただし省略はできない。App Store では Apple が販売者で、開発者側では
-       返金処理を行えないため、書いていないと問い合わせが全部こちらに来る。 -->
+       返金処理を行えないため、書いていないと問い合わせが全部こちらに来る。
+       Google Play は購入から48時間以内は Google 経由、それ以降は開発者に問い合わせる運用。 -->
   <details class="qa">
     <summary>購入の取り消しについて</summary>
     <div class="a">
-      <p>App Store でのご購入は Apple が販売者となるため、取り消しのお手続きは Apple が承っています。App Store の購入履歴、または <a href="https://reportaproblem.apple.com/" target="_blank" rel="noopener">Apple のサポートページ</a>からお申し出ください。当方では処理できません。</p>
+      <p><strong>App Store(iOS)の場合:</strong>ご購入は Apple が販売者となるため、取り消しのお手続きは Apple が承っています。App Store の購入履歴、または <a href="https://reportaproblem.apple.com/" target="_blank" rel="noopener">Apple のサポートページ</a>からお申し出ください。当方では処理できません。</p>
+      <p><strong>Google Play(Android)の場合:</strong>購入から48時間以内は、Google Play から払い戻しをお申し込みいただけます(<a href="https://support.google.com/googleplay/answer/15574908?hl=ja" target="_blank" rel="noopener">Google Play ヘルプ</a>)。48時間を過ぎた場合は、当方(contact@bridge-ai-tokyo.com)までご連絡ください。内容を確認のうえ、各ストアのポリシーおよび適用法令に沿って対応します。</p>
       <p>note でのご購入は note の定めるところによります。デジタルコンテンツの性質上、原則として取り消しには応じられませんが、内容が説明と著しく異なる場合はご連絡ください。</p>
     </div>
   </details>
@@ -128,12 +130,12 @@
       <a href="mailto:contact@bridge-ai-tokyo.com">contact@bridge-ai-tokyo.com</a>.
       This is a one-person operation, so a reply may take a few days.</p>
     <ul>
-      <li><strong>No sound:</strong> check the volume, and note that the iPhone's silent switch mutes playback (headphones are unaffected).</li>
-      <li><strong>Purchase not unlocked:</strong> tap "restore purchases" on the home screen while signed in with the Apple ID used for the purchase.</li>
+      <li><strong>No sound:</strong> check the volume. The iPhone's silent switch mutes playback, and on Android the media volume must be turned up (headphones are unaffected).</li>
+      <li><strong>Purchase not unlocked:</strong> tap "restore purchases" on the home screen while signed in with the Apple ID (iOS) or Google account (Android) used for the purchase.</li>
       <li><strong>New device:</strong> reinstall and restore purchases. Study records are stored on the device only and do not transfer.</li>
       <li><strong>Content errors:</strong> please tell us the set number, part, and question number. Fixes are delivered at no extra cost.</li>
-      <li><strong>Offline:</strong> the iOS app works fully in airplane mode; only purchases need a connection.</li>
-      <li><strong>Cancelling a purchase:</strong> Apple is the seller of record for App Store purchases and handles these requests through <a href="https://reportaproblem.apple.com/" target="_blank" rel="noopener">Apple Support</a>. We are unable to process them ourselves.</li>
+      <li><strong>Offline:</strong> the iOS and Android apps work fully in airplane mode; only purchases need a connection.</li>
+      <li><strong>Refunds:</strong> Apple is the seller of record for App Store purchases and handles these requests through <a href="https://reportaproblem.apple.com/" target="_blank" rel="noopener">Apple Support</a>; we are unable to process them ourselves. For Google Play, you can request a refund from Google Play within 48 hours of purchase (<a href="https://support.google.com/googleplay/answer/15574908" target="_blank" rel="noopener">Google Play Help</a>); after that, please contact us and we will review your request in line with the store's policy and applicable law.</li>
     </ul>
     <p>All questions are original. TOEIC is a registered trademark of Educational Testing Service (ETS). This product is not endorsed or approved by ETS.</p>
   </div>
